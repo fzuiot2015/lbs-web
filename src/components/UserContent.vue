@@ -1,85 +1,70 @@
 <template>
-  <div id="user" class="container-fluid tab-pane fade"><br>
-    <div id="user-content" class="container">
+  <div>
+    <el-row :gutter="20">
+      <el-col :span="8">
+        <el-input v-model="queryTemp.id" placeholder="请输入内容" prefix-icon="el-icon-search" clearable>
+          <template slot="prepend">编号</template>
+        </el-input>
+      </el-col>
 
-      <!--用户管理界面搜索框部分-->
-      <div>
-        <div class="row">
-          <input-group input-key="编号" :input-value="queryTemp.id"></input-group>
-          <input-group input-key="姓名" :input-value="queryTemp.name"></input-group>
-          <input-group input-key="电话" :input-value="queryTemp.phone"></input-group>
-        </div>
+      <el-col :span="8">
+        <el-input v-model="queryTemp.name" placeholder="请输入内容" prefix-icon="el-icon-search" clearable>
+          <template slot="prepend">姓名</template>
+        </el-input>
+      </el-col>
 
-        <div class="row">
-          <input-group input-key="驾驶证号" :input-value="queryTemp.driverLicense"></input-group>
-          <input-group input-key="住址" :input-value="queryTemp.address"></input-group>
-        </div>
+      <el-col :span="8">
+        <el-input v-model="queryTemp.phone" placeholder="请输入内容" prefix-icon="el-icon-search" clearable>
+          <template slot="prepend">电话</template>
+        </el-input>
+      </el-col>
+    </el-row>
 
-        <div class="row">
-          {{allData}}
-        </div>
+    <el-row :gutter="20">
+      <el-col :span="8">
+        <el-input v-model="queryTemp.driverLicense" placeholder="请输入内容" prefix-icon="el-icon-search" clearable>
+          <template slot="prepend">驾驶证号</template>
+        </el-input>
+      </el-col>
 
-      </div>
-      <br>
-      <!--用户管理界面搜索框部分-->
+      <el-col :span="8">
+        <el-input v-model="queryTemp.address" placeholder="请输入内容" prefix-icon="el-icon-search" clearable>
+          <template slot="prepend">住址</template>
+        </el-input>
+      </el-col>
 
-      <!--用户管理界面数据表格部分-->
-      <table class="table table-hover table-bordered">
-        <thead class="thead-light">
-        <tr>
-          <th>编号</th>
-          <th>姓名</th>
-          <th>电话</th>
-          <th>驾驶证号</th>
-          <th>住址</th>
-          <th>操作</th>
-        </tr>
-        </thead>
+      <el-col :span="8">
+        <el-button type="primary" size="small" @click="queryUsers">查询</el-button>
+        <el-button type="primary" size="small" @click="cleanQueryTemp">清空</el-button>
+        <el-button type="primary" size="small" @click="addUser">增加</el-button>
+        <el-button type="primary" size="small" @click="getUsers">刷新</el-button>
+      </el-col>
+    </el-row>
 
-        <tbody id="table-user">
-        <tr v-for="user in users">
-          <td>{{user.id}}</td>
-          <td>{{user.name}}</td>
-          <td>{{user.phone}}</td>
-          <td>{{user.driverLicense}}</td>
-          <td>{{user.address}}</td>
-          <td>
-            <button class="btn btn-outline-secondary">编辑</button>
-            <button class="btn btn-outline-danger">删除</button>
-          </td>
-        </tr>
-        </tbody>
-      </table>
-      <!--用户管理界面数据表格部分-->
-
-      <ul class="pagination">
-        <li id="page-start" class="page-item "><a class="page-link" href="javascript:void(0)">首页</a></li>
-        <li id="page-previous" class="page-item "><a class="page-link" href="javascript:void(0)">上一页</a></li>
-        <li class="page-item"><a id="page-num" class="page-link" href="javascript:void(0)">?/?</a></li>
-        <li id="page-next" class="page-item"><a class="page-link" href="javascript:void(0)">下一页</a></li>
-        <li id="page-end" class="page-item"><a class="page-link" href="javascript:void(0)">尾页</a></li>
-      </ul>
-
-    </div>
+    <el-table :data="users" height="300" border style="width: 100%" ref="user-table">
+      <el-table-column label="编号" prop="id" sortable width="180"></el-table-column>
+      <el-table-column label="姓名" prop="name" sortable width="180"></el-table-column>
+      <el-table-column label="电话" prop="phone" sortable width="180"></el-table-column>
+      <el-table-column label="驾驶证号" prop="driverLicense" sortable width="180"></el-table-column>
+      <el-table-column label="住址" prop="address" sortable></el-table-column>
+      <el-table-column label="操作">
+        <template slot-scope="scope">
+          <el-button size="mini" @click="editUser(scope.$index, scope.row)">编辑</el-button>
+          <el-button size="mini" type="danger" @click="handelDeleteUser(scope.$index, scope.row)">删除</el-button>
+        </template>
+      </el-table-column>
+    </el-table>
   </div>
 </template>
 
 <script>
-  import InputGroup from "../components/InputGroup";
-
   export default {
     name: "UserContent",
-    components: {InputGroup},
     data() {
       return {
         users: [],
         query: {id: '', name: '', phone: '', driverLicense: '', address: ''},
         queryTemp: {id: '', name: '', phone: '', driverLicense: '', address: ''}
-      }
-    },
-    computed: {
-      allData: function () {
-        return this.queryTemp.id + ' ' + this.queryTemp.name + ' ' + this.queryTemp.phone + ' ' + this.queryTemp.driverLicense + ' ' + this.queryTemp.address;
       }
     },
     mounted: function () {
@@ -88,16 +73,23 @@
     methods: {
       getUsers() {
         const that = this;
-        const queryParams = trimObject(that.query);
+        const queryParams = this.$util.trimObject(that.query);
         console.log(queryParams);
 
-        this.$axios.get("/user/list", {
+        this.$axios.get("/api/user/list", {
           params: queryParams
         }).then(
           function (res) {
-            const body = res.body;
-            that.setUsers(body.result.content);
+            console.log(res);
+            const data = res.data;
+            that.setUsers(data.result);
           })
+      },
+      deletUser(){
+        this.$axios.delete("/api/user")
+          .then(
+
+          )
       },
       setUsers(users) {
         this.users = users;
@@ -111,11 +103,23 @@
       },
       addUser() {
 
+      },
+      handelDeleteUser(index, row) {
+        console.log(row);
+      },
+      editUser(index, row) {
+        console.log(row);
       }
     }
   }
 </script>
 
-<style scoped>
+<style>
+  .el-row {
+    margin-bottom: 20px;
+  }
 
+  .el-col {
+    border-radius: 4px;
+  }
 </style>
