@@ -7,12 +7,15 @@ import 'element-ui/lib/theme-chalk/index.css';
 import util from './assets/js/util.js'
 import http from './assets/js/http.js'
 import Bus from './eventBus.js'
+import store from './assets/js/storage.js'
 
+Vue.use(router);
 Vue.use(ElementUI);
 
 Vue.prototype.$util = util;
 Vue.prototype.$http = http;
 Vue.prototype.$Bus = Bus;
+Vue.prototype.$store = store;
 
 Vue.config.productionTip = false;
 
