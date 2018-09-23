@@ -2,7 +2,7 @@
   <el-dialog title="编辑" :visible.sync="visible">
 
     <el-form :model="car" label-position="left" label-width="70px">
-      <el-form-item label="车辆识别码">
+      <el-form-item label="VIN码">
         <el-input v-model="car.vin" auto-complete="off"></el-input>
       </el-form-item>
 

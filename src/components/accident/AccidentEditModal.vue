@@ -5,6 +5,10 @@
         <el-input v-model="accident.time" auto-complete="off"></el-input>
       </el-form-item>
 
+      <el-form-item label="地址">
+        <el-input v-model="accident.address" auto-complete="off"></el-input>
+      </el-form-item>
+
       <el-form-item label="纬度">
         <el-input v-model="accident.lat" auto-complete="off"></el-input>
       </el-form-item>
@@ -14,18 +18,18 @@
       </el-form-item>
 
       <el-form-item label="当事人">
-        <el-input v-model="user.userId" auto-complete="off"></el-input>
+        <el-input v-model="accident.userId" auto-complete="off"></el-input>
       </el-form-item>
 
       <el-form-item label="描述">
-        <el-input v-model="user.description" auto-complete="off"></el-input>
+        <el-input v-model="accident.description" auto-complete="off"></el-input>
       </el-form-item>
 
 
     </el-form>
 
     <div slot="footer" class="dialog-footer">
-      <el-button :plain="true" @click="save(user)">确定</el-button>
+      <el-button :plain="true" @click="save(accident)">确定</el-button>
       <el-button :plain="true" type="danger" v-on:click="close">取消</el-button>
     </div>
   </el-dialog>
@@ -42,16 +46,16 @@
     },
     mounted() {
       this.user = {};
-      this.$Bus.$on('userEditEvent', (res) => {
+      this.$Bus.$on('accidentEditEvent', (res) => {
         console.log(res);
-        this.user = res;
+        this.accident = res;
         this.visible = true;
       });
     },
     methods: {
       save(item) {
-        this.$http.put('/api/user', item, () => {
-            this.$Bus.$emit('userRefreshEvent');
+        this.$http.put('/api/accident', item, () => {
+            this.$Bus.$emit('accidentRefreshEvent');
             this.visible = false;
           }
         )
@@ -62,7 +66,3 @@
     }
   }
 </script>
-
-<style scoped>
-
-</style>

@@ -1,5 +1,6 @@
 <template>
-  <el-form :model="loginForm" status-icon :rules="rules" ref="loginForm" label-width="100px" class="demo-ruleForm">
+  <el-form :model="loginForm" :rules="rules" status-icon ref="loginForm"
+           label-position="left" label-width="70px" class="demo-ruleForm">
 
     <el-form-item label="账号" prop="username">
       <el-input v-model.number="loginForm.username"></el-input>
@@ -25,14 +26,15 @@
   export default {
     name: "Login",
     data() {
+      //TODO:表单校验
       const checkUsername = (rule, value, callback) => {
         if (!value) {
-          return callback(new Error('账号不能为空'));
+          callback(new Error('账号不能为空'));
         }
         setTimeout(() => {
           //TODO:
           callback()
-        }, 1000);
+        }, 50000);
       };
       const validatePass = (rule, value, callback) => {
         if (value === '') {
@@ -76,12 +78,11 @@
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            //TODO:储存token
-            this.$store.set('login_token', '12'); //储存信息
+            this.$store.set('login_token', '12345'); //储存信息
             this.$router.push('/user');
-            alert('submit!');
+            alert('登录成功!');
           } else {
-            console.log('error submit!!');
+            console.log('登录失败!');
             return false;
           }
         });

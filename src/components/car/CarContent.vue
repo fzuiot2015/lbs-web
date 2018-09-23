@@ -14,7 +14,3 @@
     components: {CarFilterInput, CarTable}
   }
 </script>
-
-<style scoped>
-
-</style>

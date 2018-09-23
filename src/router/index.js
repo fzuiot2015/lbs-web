@@ -4,6 +4,8 @@ import Index from '../components/Index'
 import UserContent from '../components/user/UserContent'
 import CarContent from '../components/car/CarContent'
 import AccidentContent from '../components/accident/AccidentContent'
+import InsuranceContent from "../components/insurance/InsuranceContent"
+import RuleContent from "../components/rule/RuleContent"
 import Login from '../components/Login'
 import store from '../assets/js/storage'
 
@@ -27,7 +29,7 @@ const router = new Router({
           meta: {Login: true}
         },
         {
-          path: '/car',
+          path: '/car/',
           component: CarContent,
           meta: {Login: true}
         },
@@ -36,6 +38,16 @@ const router = new Router({
           component: AccidentContent,
           meta: {Login: true}
         },
+        {
+          path: '/insurance',
+          component: InsuranceContent,
+          meta: {Login: true}
+        },
+        {
+          path: '/rule',
+          component: RuleContent,
+          meta: {Login: true}
+        }
       ]
     },
     {
@@ -46,10 +58,8 @@ const router = new Router({
 });
 
 router.beforeEach((to, from, next) => {
-  //TODO:对token进行验证
-  // store.set('login_token', '123');
   if (to.meta.Login) {
-    if (store.get('login_token') === '12') {
+    if (store.get('login_token') === '12345') {
       next();
     } else {
       next({path: '/login'})

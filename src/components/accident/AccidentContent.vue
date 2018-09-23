@@ -14,7 +14,3 @@
     components: {AccidentTable, AccidentFilterInput},
   }
 </script>
-
-<style scoped>
-
-</style>

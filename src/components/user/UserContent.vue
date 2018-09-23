@@ -1,8 +1,8 @@
 <template>
-  <el-main>
-    <user-filter-input></user-filter-input>
-    <user-table></user-table>
-  </el-main>
+    <el-main>
+      <user-filter-input></user-filter-input>
+      <user-table></user-table>
+    </el-main>
 </template>
 
 <script>

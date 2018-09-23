@@ -1,12 +1,16 @@
 <template>
   <div>
     <el-row :gutter="gutter">
+
       <el-col :span="span">
-        <el-input v-model="params.userId" placeholder="请输入内容" prefix-icon="el-icon-search" clearable>
-          <template slot="prepend">用户ID</template>
+        <el-input v-model="params.insurer" placeholder="请输入内容" prefix-icon="el-icon-search" clearable>
+          <template slot="prepend">保险公司</template>
         </el-input>
       </el-col>
 
+    </el-row>
+
+    <el-row :gutter="gutter">
       <el-col :span="span">
         <el-button type="primary" size="small" @click="query">查询</el-button>
         <el-button type="primary" size="small" @click="cleanQueryTemp">清空</el-button>
@@ -19,11 +23,11 @@
 
 <script>
   export default {
-    name: 'AccidentFilterInput',
+    name: "RuleFilterInput",
     data() {
       return {
         user: {},
-        params: {id: '', userId: ''},
+        params: {id: '', insurer: ''},
         gutter: 20,
         span: 8,
       }
@@ -34,16 +38,16 @@
     methods: {
       query() {
         const queryParams = this.$util.trimObject(this.params);
-        this.$Bus.$emit('accidentQueryEvent', queryParams);
+        this.$Bus.$emit('ruleQueryEvent', queryParams);
       },
       cleanQueryTemp() {
         this.params = {}
       },
       add() {
-        this.$Bus.$emit('accidentEditEvent', {});
+        this.$Bus.$emit('ruleEditEvent', {});
       },
       refresh() {
-        this.$Bus.$emit('accidentRefreshEvent');
+        this.$Bus.$emit('ruleRefreshEvent');
       }
     }
   }

@@ -2,9 +2,10 @@
   <div>
     <el-table :data="accidents" height="400" border style="width: 100%" ref="user-table">
       <el-table-column label="时间" prop="time" sortable width="170"></el-table-column>
+      <el-table-column label="地址" prop="address" sortable width="170"></el-table-column>
       <el-table-column label="纬度" prop="lat" sortable width="170"></el-table-column>
       <el-table-column label="经度" prop="lng" sortable width="170"></el-table-column>
-      <el-table-column label="描述" prop="description" sortable width="170"></el-table-column>
+      <el-table-column label="描述" prop="description" sortable></el-table-column>
       <el-table-column label="操作" width="160">
         <template slot-scope="scope">
           <el-button size="mini" @click="edit(scope.$index, scope.row)">编辑</el-button>
@@ -36,6 +37,7 @@
       }
     },
     mounted() {
+      this.params.userId = this.$route.query.userId;
       this.get();
       this.$Bus.$on('accidentQueryEvent', (queryParams) => {
         this.params = queryParams;
@@ -49,7 +51,7 @@
     methods: {
       get() {
         this.$http.get('/api/accident/list', this.params, (data) => {
-          this.users = data.result;
+          this.accidents = data.result;
           this.pageNum = data.pageNum + 1;
           this.total = data.total;
         })
@@ -62,9 +64,26 @@
         this.$Bus.$emit('accidentEditEvent', item);
       },
       deleteItem(index, item) {
-        this.$http.delete('/api/accident/', item.id, () => {
-          this.get();
+        this.$confirm('此操作将永久删除该记录, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
         })
+          .then(() => {
+            this.$http.delete('/api/accident/', item.id, () => {
+              this.$message({
+                type: 'success',
+                message: '删除成功!'
+              });
+              this.get();
+            });
+          })
+          .catch(() => {
+            this.$message({
+              type: 'info',
+              message: '已取消删除'
+            });
+          });
       }
     }
   }

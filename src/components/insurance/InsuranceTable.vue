@@ -1,20 +1,11 @@
 <template>
   <div>
-    <el-table :data="users" style="width: 100%;height:100%" ref="user-table">
-      <el-table-column type="expand">
-        <template slot-scope="scope">
-          <router-link :to="{path:'/car',query:{userId:scope.row.id}}">车辆信息</router-link>
-          <router-link :to="{path:'/accident',query:{userId:scope.row.id}}">事故信息</router-link>
-          <router-link :to="{path:'/insurance',query:{userId:scope.row.id}}">保险信息</router-link>
-        </template>
-      </el-table-column>
-
-      <el-table-column label="ID" prop="id" sortable width="100"></el-table-column>
-      <el-table-column label="账号" prop="username" sortable width="170"></el-table-column>
-      <el-table-column label="姓名" prop="name" sortable width="170"></el-table-column>
-      <el-table-column label="电话" prop="phone" sortable width="170"></el-table-column>
-      <el-table-column label="驾驶证号" prop="driverLicense" sortable width="170"></el-table-column>
-      <el-table-column label="住址" prop="address" sortable></el-table-column>
+    <el-table :data="insurances" border style="width: 100%;height:100%" ref="user-table">
+      <el-table-column label="ID" prop="id" sortable width="170"></el-table-column>
+      <el-table-column label="用户ID" prop="userId" sortable width="170"></el-table-column>
+      <el-table-column label="保险公司" prop="insurer" sortable width="170"></el-table-column>
+      <el-table-column label="保单号" prop="policyId" sortable width="170"></el-table-column>
+      <el-table-column label="保险电话" prop="insurancePhone" sortable></el-table-column>
       <el-table-column label="操作" width="160">
         <template slot-scope="scope">
           <el-button size="mini" @click="edit(scope.$index, scope.row)">编辑</el-button>
@@ -27,39 +18,40 @@
                    :page-size="5" :total="total" :current-page.sync="pageNum">
     </el-pagination>
 
-    <user-edit-modal></user-edit-modal>
+    <insurance-edit-modal></insurance-edit-modal>
   </div>
 </template>
 
 <script>
-  import UserEditModal from "./UserEditModal";
+  import InsuranceEditModal from "./InsuranceEditModal";
 
   export default {
-    name: 'UserTable',
-    components: {UserEditModal},
+    name: 'InsuranceTable',
+    components: {InsuranceEditModal},
     data() {
       return {
-        users: [],
+        insurances: [],
         params: {},
         pageNum: 0,
         total: 0,
       }
     },
     mounted() {
+      this.params.owner = this.$route.query.userId;
       this.get();
-      this.$Bus.$on('userQueryEvent', (queryParams) => {
+      this.$Bus.$on('insuranceQueryEvent', (queryParams) => {
         this.params = queryParams;
         this.get()
       });
-      this.$Bus.$on('userRefreshEvent', () => {
+      this.$Bus.$on('insuranceRefreshEvent', () => {
         this.params.pageNum = 0;
         this.get();
       });
     },
     methods: {
       get() {
-        this.$http.get('/api/user/list', this.params, (data) => {
-          this.users = data.result;
+        this.$http.get('/api/insurance/list', this.params, (data) => {
+          this.insurances = data.result;
           this.pageNum = data.pageNum + 1;
           this.total = data.total;
         })
@@ -69,7 +61,7 @@
         this.get()
       },
       edit(index, item) {
-        this.$Bus.$emit('userEditEvent', item);
+        this.$Bus.$emit('insuranceEditEvent', item);
       },
       deleteItem(index, item) {
         this.$confirm('此操作将永久删除该记录, 是否继续?', '提示', {
@@ -78,7 +70,7 @@
           type: 'warning'
         })
           .then(() => {
-            this.$http.delete('/api/user/', item.id, () => {
+            this.$http.delete('/api/insurance/', item.id, () => {
               this.$message({
                 type: 'success',
                 message: '删除成功!'
