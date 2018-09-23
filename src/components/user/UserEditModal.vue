@@ -133,14 +133,12 @@
     },
     methods: {
       save() {
-        const that = this;
         this.$refs['userForm'].validate((valid) => {
-          console.log(valid);
           if (valid) {
-            that.$http.put('/api/user', that.user,
+            this.$http.put('/api/user', this.user,
               () => {
-                that.$Bus.$emit('userRefreshEvent');
-                that.visible = false;
+                this.$Bus.$emit('userRefreshEvent');
+                this.visible = false;
                 this.$message.success('提交成功!');
               }
             );

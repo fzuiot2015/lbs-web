@@ -79,10 +79,7 @@
         })
           .then(() => {
             this.$http.delete('/api/user/', item.id, () => {
-              this.$message({
-                type: 'success',
-                message: '删除成功!'
-              });
+              this.$message.success('删除成功!');
               this.get();
             });
           })

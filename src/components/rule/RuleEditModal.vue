@@ -1,27 +1,28 @@
 <template>
   <el-dialog title="编辑" :visible.sync="visible">
+    <el-form :model="rule" :rules="rules" status-icon ref="ruleForm"
+             label-position="left" label-width="70px" class="demo-ruleForm">
 
-    <el-form :model="rule" label-position="left" label-width="70px">
-      <el-form-item label="保险公司">
+      <el-form-item label="保险公司" prop="insurer">
         <el-input v-model="rule.insurer" auto-complete="off"></el-input>
       </el-form-item>
 
-      <el-form-item label="油耗因数">
+      <el-form-item label="油耗因数" prop="oilFactor">
         <el-input v-model="rule.oilFactor" auto-complete="off"></el-input>
       </el-form-item>
 
-      <el-form-item label="行程因数">
+      <el-form-item label="行程因数" prop="distanceFactor">
         <el-input v-model="rule.distanceFactor" auto-complete="off"></el-input>
       </el-form-item>
 
-      <el-form-item label="事故因数">
+      <el-form-item label="事故因数" prop="accidentCountFactor">
         <el-input v-model="rule.accidentCountFactor" auto-complete="off"></el-input>
       </el-form-item>
 
     </el-form>
 
     <div slot="footer" class="dialog-footer">
-      <el-button :plain="true" @click="save(rule)">确定</el-button>
+      <el-button :plain="true" @click="save">确定</el-button>
       <el-button :plain="true" type="danger" v-on:click="close">取消</el-button>
     </div>
   </el-dialog>
@@ -31,29 +32,86 @@
   export default {
     name: "RuleEditModal",
     data() {
+      const checkInsurer = (rule, value, callback) => {
+        if (!value) {
+          callback(new Error('请输入保险公司'));
+        } else {
+          callback();
+        }
+      };
+      const checkOilFactor = (rule, value, callback) => {
+        if (!value) {
+          callback(new Error('请输入油耗因数'));
+        } else {
+          callback();
+        }
+      };
+      const checkDistanceFactor = (rule, value, callback) => {
+        if (!value) {
+          callback(new Error('请输入行程因数'));
+        } else {
+          callback();
+        }
+      };
+      const checkAccidentCountFactor = (rule, value, callback) => {
+        if (!value) {
+          callback(new Error('请输入事故因数'));
+        } else {
+          callback();
+        }
+      };
       return {
         visible: false,
-        rule: {}
+        rule: {},
+        rules: {
+          insurer: [
+            {validator: checkInsurer, trigger: 'blur'}
+          ],
+          oilFactor: [
+            {validator: checkOilFactor, trigger: 'blur'}
+          ],
+          distanceFactor: [
+            {validator: checkDistanceFactor, trigger: 'blur'}
+          ],
+          accidentCountFactor: [
+            {validator: checkAccidentCountFactor, trigger: 'blur'}
+          ],
+        }
       }
     },
     mounted() {
-      this.car = {};
+      this.reset();
       this.$Bus.$on('ruleEditEvent', (res) => {
-        console.log(res);
+        this.reset();
         this.rule = res;
         this.visible = true;
       });
     },
     methods: {
-      save(item) {
-        this.$http.put('/api/rule', item, () => {
-            this.$Bus.$emit('ruleRefreshEvent');
-            this.visible = false;
+      save() {
+        this.$refs['ruleForm'].validate((valid) => {
+          if (valid) {
+            this.$http.put('/api/rule', this.rule,
+              () => {
+                this.$Bus.$emit('ruleRefreshEvent');
+                this.visible = false;
+                this.$message.success('提交成功!');
+              }
+            );
+          } else {
+            this.$message.error('提交失败!');
+            return false;
           }
-        )
+        });
       },
       close() {
         this.visible = false;
+      },
+      reset() {
+        const ref = this.$refs['ruleForm'];
+        if (ref !== undefined) {
+          ref.resetFields();
+        }
       }
     }
   }

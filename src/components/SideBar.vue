@@ -2,8 +2,6 @@
   <el-aside width="140px">
     <el-menu :default-active="$route.path" router>
 
-      <!--background-color="#545c64" text-color="#fff" active-text-color="#ffd04b"-->
-
       <el-menu-item index="/user">
         <i class="el-icon-menu"></i>
         <span slot="title">用户信息</span>
