@@ -1,7 +1,7 @@
 <template>
   <el-dialog title="编辑" :visible.sync="visible">
     <el-form :model="accident" :rules="rules" status-icon ref="accidentForm"
-             label-position="left" label-width="70px" class="demo-ruleForm">
+             label-position="left" label-width="70px">
 
       <el-form-item label="时间" prop="time">
         <el-input v-model="accident.time" auto-complete="off"></el-input>
@@ -37,6 +37,10 @@
 </template>
 
 <script>
+  const refreshEvent = 'accidentRefreshEvent';
+  const editEvent = 'accidentEditEvent';
+  const itemUrl = '/api/accident/';
+
   export default {
     name: 'AccidentEditModal',
     data() {
@@ -109,38 +113,41 @@
     },
     mounted() {
       this.reset();
-      this.$Bus.$on('accidentEditEvent', (res) => {
+      this.$Bus.$on(editEvent, (res) => {
         this.reset();
-        this.accident = res;
+        this.user = res;
+        this.user.rePassword = res.password;
         this.visible = true;
       });
     },
     methods: {
-      save() {
-        this.$refs['accidentForm'].validate((valid) => {
+      submit() {
+        this.$refs[this.ref].validate((valid) => {
           if (valid) {
-            this.$http.put('/api/accident', this.accident,
-              () => {
-                this.$Bus.$emit('accidentRefreshEvent');
-                this.visible = false;
-                this.$message.success('提交成功!');
-              }
-            );
-          } else {
-            this.$message.error('提交失败!');
-            return false;
+            this.save();
           }
         });
+      },
+      save() {
+        this.$http.put(itemUrl, this.user,
+          () => {
+            this.$Bus.$emit(refreshEvent);
+            this.visible = false;
+            this.$message.success('提交成功!');
+          },
+          (res) => this.$message.error('提交失败[' + res.status + ']:' + res.message)
+        );
       },
       close() {
         this.visible = false;
       },
       reset() {
-        const ref = this.$refs['accidentForm'];
+        const ref = this.$refs[this.ref];
         if (ref !== undefined) {
           ref.resetFields();
         }
       }
+
     }
   }
 </script>

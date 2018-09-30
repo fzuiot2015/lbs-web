@@ -18,12 +18,15 @@
 </template>
 
 <script>
+  const queryEvent = 'accidentQueryEvent';
+  const refreshEvent = 'accidentRefreshEvent';
+  const editEvent = 'accidentEditEvent';
+
   export default {
     name: 'AccidentFilterInput',
     data() {
       return {
-        user: {},
-        params: {id: '', userId: ''},
+        params: {},
         gutter: 20,
         span: 8,
       }
@@ -34,17 +37,19 @@
     methods: {
       query() {
         const queryParams = this.$util.trimObject(this.params);
-        this.$Bus.$emit('accidentQueryEvent', queryParams);
+        this.$Bus.$emit(queryEvent, queryParams);
       },
-      cleanQueryTemp() {
+      cleanParams() {
         this.params = {}
       },
       add() {
-        this.$Bus.$emit('accidentEditEvent', {});
+        this.$Bus.$emit(editEvent, {});
       },
       refresh() {
-        this.$Bus.$emit('accidentRefreshEvent');
+        this.$Bus.$emit(refreshEvent);
       }
+
+
     }
   }
 </script>

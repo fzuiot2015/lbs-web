@@ -1,7 +1,7 @@
 <template>
   <el-dialog title="编辑" :visible.sync="visible">
     <el-form :model="rule" :rules="rules" status-icon ref="ruleForm"
-             label-position="left" label-width="70px" class="demo-ruleForm">
+             label-position="left" label-width="70px">
 
       <el-form-item label="保险公司" prop="insurer">
         <el-input v-model="rule.insurer" auto-complete="off"></el-input>
@@ -22,13 +22,17 @@
     </el-form>
 
     <div slot="footer" class="dialog-footer">
-      <el-button :plain="true" @click="save">确定</el-button>
-      <el-button :plain="true" type="danger" v-on:click="close">取消</el-button>
+      <el-button :plain="true" @click="submit">确定</el-button>
+      <el-button :plain="true" type="danger" @click="close">取消</el-button>
     </div>
   </el-dialog>
 </template>
 
 <script>
+  const refreshEvent = 'ruleRefreshEvent';
+  const editEvent = 'ruleEditEvent';
+  const itemUrl = '/api/rule/';
+
   export default {
     name: "RuleEditModal",
     data() {
@@ -81,34 +85,36 @@
     },
     mounted() {
       this.reset();
-      this.$Bus.$on('ruleEditEvent', (res) => {
+      this.$Bus.$on(editEvent, (res) => {
         this.reset();
-        this.rule = res;
+        this.user = res;
+        this.user.rePassword = res.password;
         this.visible = true;
       });
     },
     methods: {
-      save() {
-        this.$refs['ruleForm'].validate((valid) => {
+      submit() {
+        this.$refs[this.ref].validate((valid) => {
           if (valid) {
-            this.$http.put('/api/rule', this.rule,
-              () => {
-                this.$Bus.$emit('ruleRefreshEvent');
-                this.visible = false;
-                this.$message.success('提交成功!');
-              }
-            );
-          } else {
-            this.$message.error('提交失败!');
-            return false;
+            this.save();
           }
         });
+      },
+      save() {
+        this.$http.put(itemUrl, this.user,
+          () => {
+            this.$Bus.$emit(refreshEvent);
+            this.visible = false;
+            this.$message.success('提交成功!');
+          },
+          (res) => this.$message.error('提交失败[' + res.status + ']:' + res.message)
+        );
       },
       close() {
         this.visible = false;
       },
       reset() {
-        const ref = this.$refs['ruleForm'];
+        const ref = this.$refs[this.ref];
         if (ref !== undefined) {
           ref.resetFields();
         }

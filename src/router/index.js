@@ -59,10 +59,10 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
   if (to.meta.Login) {
-    if (store.get('login_token') === '12345') {
-      next();
+    if (store.get('login_token') === null) {
+      next({path: '/login'});
     } else {
-      next({path: '/login'})
+      next();
     }
   } else {
     next();

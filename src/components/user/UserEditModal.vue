@@ -1,7 +1,7 @@
 <template>
   <el-dialog title="编辑" :visible.sync="visible">
-    <el-form :model="user" :rules="rules" status-icon ref="userForm"
-             label-position="left" label-width="70px" class="demo-ruleForm">
+    <el-form :model="user" :rules="rules" status-icon :ref="ref"
+             label-position="left" label-width="70px">
 
       <el-form-item label="账号" prop="username">
         <el-input v-model="user.username" auto-complete="off"></el-input>
@@ -33,13 +33,17 @@
     </el-form>
 
     <div slot="footer" class="dialog-footer">
-      <el-button :plain="true" @click="save">确定</el-button>
+      <el-button :plain="true" @click="submit">确定</el-button>
       <el-button :plain="true" type="danger" v-on:click="close">取消</el-button>
     </div>
   </el-dialog>
 </template>
 
 <script>
+  const refreshEvent = 'userRefreshEvent';
+  const editEvent = 'userEditEvent';
+  const itemUrl = '/api/user/';
+
   export default {
     name: 'UserEditModal',
     data() {
@@ -95,36 +99,43 @@
         }
       };
       return {
+        ref: 'userForm',
         visible: false,
         user: {},
         rules: {
           username: [
             {validator: checkUsername, trigger: 'blur'}
           ],
-          password: [
-            {validator: checkPassword, trigger: 'blur'}
-          ],
-          rePassword: [
-            {validator: checkRePassword, trigger: 'blur'}
-          ],
-          name: [
-            {validator: checkName, trigger: 'blur'}
-          ],
-          phone: [
-            {validator: checkPhone, trigger: 'blur'}
-          ],
-          driverLicense: [
-            {validator: checkDriverLicense, trigger: 'blur'}
-          ],
-          address: [
-            {validator: checkAddress, trigger: 'blur'}
-          ]
+          password:
+            [
+              {validator: checkPassword, trigger: 'blur'}
+            ],
+          rePassword:
+            [
+              {validator: checkRePassword, trigger: 'blur'}
+            ],
+          name:
+            [
+              {validator: checkName, trigger: 'blur'}
+            ],
+          phone:
+            [
+              {validator: checkPhone, trigger: 'blur'}
+            ],
+          driverLicense:
+            [
+              {validator: checkDriverLicense, trigger: 'blur'}
+            ],
+          address:
+            [
+              {validator: checkAddress, trigger: 'blur'}
+            ]
         }
       }
     },
     mounted() {
       this.reset();
-      this.$Bus.$on('userEditEvent', (res) => {
+      this.$Bus.$on(editEvent, (res) => {
         this.reset();
         this.user = res;
         this.user.rePassword = res.password;
@@ -132,30 +143,32 @@
       });
     },
     methods: {
-      save() {
-        this.$refs['userForm'].validate((valid) => {
+      submit() {
+        this.$refs[this.ref].validate((valid) => {
           if (valid) {
-            this.$http.put('/api/user', this.user,
-              () => {
-                this.$Bus.$emit('userRefreshEvent');
-                this.visible = false;
-                this.$message.success('提交成功!');
-              }
-            );
-          } else {
-            this.$message.error('提交失败!');
-            return false;
+            this.save();
           }
         });
+      },
+      save() {
+        this.$http.put(itemUrl, this.user,
+          () => {
+            this.$Bus.$emit(refreshEvent);
+            this.visible = false;
+            this.$message.success('提交成功!');
+          },
+          (res) => this.$message.error('提交失败[' + res.status + ']:' + res.message)
+        );
       },
       close() {
         this.visible = false;
       },
       reset() {
-        const ref = this.$refs['userForm'];
+        const ref = this.$refs[this.ref];
         if (ref !== undefined) {
           ref.resetFields();
         }
+        
       }
     }
   }

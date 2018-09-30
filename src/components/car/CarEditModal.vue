@@ -1,7 +1,7 @@
 <template>
   <el-dialog title="编辑" :visible.sync="visible">
     <el-form :model="car" :rules="rules" status-icon ref="carForm"
-             label-position="left" label-width="70px" class="demo-ruleForm">
+             label-position="left" label-width="70px">
 
       <el-form-item label="VIN码" prop="vin">
         <el-input v-model="car.vin" auto-complete="off"></el-input>
@@ -36,6 +36,10 @@
 </template>
 
 <script>
+  const refreshEvent = 'carRefreshEvent';
+  const editEvent = 'carEditEvent';
+  const itemUrl = '/api/car/';
+
   export default {
     name: "CarEditModal",
     data() {
@@ -108,38 +112,41 @@
     },
     mounted() {
       this.reset();
-      this.$Bus.$on('carEditEvent', (res) => {
+      this.$Bus.$on(editEvent, (res) => {
         this.reset();
-        this.car = res;
+        this.user = res;
+        this.user.rePassword = res.password;
         this.visible = true;
       });
     },
     methods: {
-      save() {
-        this.$refs['carForm'].validate((valid) => {
+      submit() {
+        this.$refs[this.ref].validate((valid) => {
           if (valid) {
-            this.$http.put('/api/car', this.car,
-              () => {
-                this.$Bus.$emit('carRefreshEvent');
-                this.visible = false;
-                this.$message.success('提交成功!');
-              }
-            );
-          } else {
-            this.$message.error('提交失败!');
-            return false;
+            this.save();
           }
         });
+      },
+      save() {
+        this.$http.put(itemUrl, this.user,
+          () => {
+            this.$Bus.$emit(refreshEvent);
+            this.visible = false;
+            this.$message.success('提交成功!');
+          },
+          (res) => this.$message.error('提交失败[' + res.status + ']:' + res.message)
+        );
       },
       close() {
         this.visible = false;
       },
       reset() {
-        const ref = this.$refs['carForm'];
+        const ref = this.$refs[this.ref];
         if (ref !== undefined) {
           ref.resetFields();
         }
       }
+
     }
   }
 </script>

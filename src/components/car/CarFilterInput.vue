@@ -53,12 +53,15 @@
 </template>
 
 <script>
+  const queryEvent = 'carQueryEvent';
+  const refreshEvent = 'carRefreshEvent';
+  const editEvent = 'carEditEvent';
+
   export default {
     name: "CarFilterInput",
     data() {
       return {
-        user: {},
-        params: {id: '', vin: '', plate: '', vehicleType: '', owner: '', engine: '', model: ''},
+        params: {},
         gutter: 20,
         span: 8,
       }
@@ -69,17 +72,18 @@
     methods: {
       query() {
         const queryParams = this.$util.trimObject(this.params);
-        this.$Bus.$emit('carQueryEvent', queryParams);
+        this.$Bus.$emit(queryEvent, queryParams);
       },
-      cleanQueryTemp() {
+      cleanParams() {
         this.params = {}
       },
       add() {
-        this.$Bus.$emit('carEditEvent', {});
+        this.$Bus.$emit(editEvent, {});
       },
       refresh() {
-        this.$Bus.$emit('carRefreshEvent');
+        this.$Bus.$emit(refreshEvent);
       }
+
     }
   }
 </script>

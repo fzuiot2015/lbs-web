@@ -27,13 +27,32 @@
         <span slot="title">保险规则</span>
       </el-menu-item>
 
+      <el-menu-item index="/" @click="logout">
+        <i class="el-icon-circle-close"></i>
+        <span slot="title">退出</span>
+      </el-menu-item>
+
     </el-menu>
   </el-aside>
 </template>
 
 <script>
   export default {
-    name: "SideBar"
+    name: "SideBar",
+    methods: {
+      logout() {
+        this.$confirm('是否退出登录状态并返回登录界面?', '退出', {
+          confirmButtonText: '退出',
+          cancelButtonText: '取消',
+          type: 'warning'
+        })
+          .then(() => {
+            this.$store.set('login_token', null);
+            this.$router.replace('/login');
+            this.$message('已退出登录状态!');
+          })
+      }
+    }
   }
 </script>
 

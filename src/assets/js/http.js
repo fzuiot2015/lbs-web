@@ -1,49 +1,48 @@
 import axios from 'axios'
 
 export default {
-  get(url, params, then) {
-    axios.get(url, {
-      params: params
-    }).then((res) => {
-      console.log(res);
-      const data = res.data;
-      if (data.status === 0) {
-        then(data);
-      } else {
-        alert(data.status + " " + data.message);
-      }
-    })
-      .catch((res) => {
-        console.log(res);
-        alert('连接失败')
-      })
+  callback(res, onSuccess, onFail) {
+    const data = res.data;
+    if (data.status === 0) {
+      onSuccess(data);
+    } else {
+      onFail(data);
+    }
   },
-  put(url, params, then) {
+  get(url, params, onSuccess, onFail) {
+    axios.get(url, {params: params})
+      .then(
+        (res) => this.callback(res, onSuccess, onFail)
+      )
+      .catch(
+        (res) => alert(res)
+      )
+  },
+  put(url, params, onSuccess, onFail) {
     axios.put(url, params)
-      .then((res) => {
-        console.log(res);
-        const data = res.data;
-        if (data.status === 0) {
-          then();
-        } else {
-          alert(data.status + " " + data.message);
-        }
-      })
-      .catch((res) => {
-        console.log(res);
-        alert('连接失败')
-      })
+      .then(
+        (res) => this.callback(res, onSuccess, onFail)
+      )
+      .catch(
+        (res) => alert(res)
+      )
   },
-  delete(url, id, then) {
+  post(url, params, onSuccess, onFail) {
+    axios.post(url, params)
+      .then(
+        (res) => this.callback(res, onSuccess, onFail)
+      )
+      .catch(
+        (res) => alert(res)
+      )
+  },
+  delete(url, id, onSuccess, onFail) {
     axios.delete(url + id)
-      .then((res) => {
-        console.log(res);
-        const data = res.data;
-        if (data.status === 0) {
-          then();
-        } else {
-          alert(data.status + " " + data.message);
-        }
-      })
+      .then(
+        (res) => this.callback(res, onSuccess, onFail)
+      )
+      .catch(
+        (res) => alert(res)
+      )
   }
 }

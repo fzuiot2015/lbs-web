@@ -13,7 +13,7 @@
     <el-row :gutter="gutter">
       <el-col :span="span">
         <el-button type="primary" size="small" @click="query">查询</el-button>
-        <el-button type="primary" size="small" @click="cleanQueryTemp">清空</el-button>
+        <el-button type="primary" size="small" @click="cleanParams">清空</el-button>
         <el-button type="primary" size="small" @click="add">增加</el-button>
         <el-button type="primary" size="small" @click="refresh">刷新</el-button>
       </el-col>
@@ -22,12 +22,15 @@
 </template>
 
 <script>
+  const queryEvent = 'ruleQueryEvent';
+  const refreshEvent = 'ruleRefreshEvent';
+  const editEvent = 'ruleEditEvent';
+
   export default {
     name: "RuleFilterInput",
     data() {
       return {
-        user: {},
-        params: {id: '', insurer: ''},
+        params: {},
         gutter: 20,
         span: 8,
       }
@@ -38,17 +41,18 @@
     methods: {
       query() {
         const queryParams = this.$util.trimObject(this.params);
-        this.$Bus.$emit('ruleQueryEvent', queryParams);
+        this.$Bus.$emit(queryEvent, queryParams);
       },
-      cleanQueryTemp() {
+      cleanParams() {
         this.params = {}
       },
       add() {
-        this.$Bus.$emit('ruleEditEvent', {});
+        this.$Bus.$emit(editEvent, {});
       },
       refresh() {
-        this.$Bus.$emit('ruleRefreshEvent');
+        this.$Bus.$emit(refreshEvent);
       }
+
     }
   }
 </script>

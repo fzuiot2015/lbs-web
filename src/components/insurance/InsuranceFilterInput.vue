@@ -32,33 +32,37 @@
 </template>
 
 <script>
+  const queryEvent = 'insuranceQueryEvent';
+  const refreshEvent = 'insuranceRefreshEvent';
+  const editEvent = 'insuranceEditEvent';
+
   export default {
     name: 'InsuranceFilterInput',
     data() {
       return {
-        user: {},
-        params: {id: '', userId: '', insurer: '', policyId: '', insurancePhone: ''},
+        params: {},
         gutter: 20,
         span: 8,
       }
     },
     mounted() {
-      this.params.owner = this.$route.query.userId;
+      this.params.userId = this.$route.query.userId;
     },
     methods: {
       query() {
         const queryParams = this.$util.trimObject(this.params);
-        this.$Bus.$emit('insuranceQueryEvent', queryParams);
+        this.$Bus.$emit(queryEvent, queryParams);
       },
-      cleanQueryTemp() {
+      cleanParams() {
         this.params = {}
       },
       add() {
-        this.$Bus.$emit('insuranceEditEvent', {});
+        this.$Bus.$emit(editEvent, {});
       },
       refresh() {
-        this.$Bus.$emit('insuranceRefreshEvent');
+        this.$Bus.$emit(refreshEvent);
       }
+
     }
   }
 </script>
