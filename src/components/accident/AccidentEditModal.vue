@@ -1,30 +1,30 @@
 <template>
   <el-dialog title="编辑" :visible.sync="visible">
-    <el-form :model="accident" :rules="rules" status-icon ref="accidentForm"
+    <el-form :model="item" :rules="rules" status-icon :ref="ref"
              label-position="left" label-width="70px">
 
       <el-form-item label="时间" prop="time">
-        <el-input v-model="accident.time" auto-complete="off"></el-input>
+        <el-input v-model="item.time" auto-complete="off"></el-input>
       </el-form-item>
 
       <el-form-item label="地址" prop="address">
-        <el-input v-model="accident.address" auto-complete="off"></el-input>
+        <el-input v-model="item.address" auto-complete="off"></el-input>
       </el-form-item>
 
       <el-form-item label="纬度" porp="lat">
-        <el-input v-model="accident.lat" auto-complete="off"></el-input>
+        <el-input v-model="item.lat" auto-complete="off"></el-input>
       </el-form-item>
 
       <el-form-item label="经度" prop="lng">
-        <el-input v-model="accident.lng" auto-complete="off"></el-input>
+        <el-input v-model="item.lng" auto-complete="off"></el-input>
       </el-form-item>
 
       <el-form-item label="当事人" prop="userId">
-        <el-input v-model="accident.userId" auto-complete="off"></el-input>
+        <el-input v-model="item.userId" auto-complete="off"></el-input>
       </el-form-item>
 
       <el-form-item label="描述" prop="description">
-        <el-input v-model="accident.description" auto-complete="off"></el-input>
+        <el-input v-model="item.description" auto-complete="off"></el-input>
       </el-form-item>
 
     </el-form>
@@ -87,8 +87,9 @@
         }
       };
       return {
+        ref: 'accidentForm',
         visible: false,
-        accident: {},
+        item: {},
         rules: {
           time: [
             {validator: checkTime, trigger: 'blur'}
@@ -115,8 +116,7 @@
       this.reset();
       this.$Bus.$on(editEvent, (res) => {
         this.reset();
-        this.user = res;
-        this.user.rePassword = res.password;
+        this.item = res;
         this.visible = true;
       });
     },
@@ -129,7 +129,7 @@
         });
       },
       save() {
-        this.$http.put(itemUrl, this.user,
+        this.$http.put(itemUrl, this.item,
           () => {
             this.$Bus.$emit(refreshEvent);
             this.visible = false;

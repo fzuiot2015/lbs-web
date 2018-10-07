@@ -1,30 +1,30 @@
 <template>
   <el-dialog title="编辑" :visible.sync="visible">
-    <el-form :model="car" :rules="rules" status-icon ref="carForm"
+    <el-form :model="item" :rules="rules" status-icon :ref="ref"
              label-position="left" label-width="70px">
 
       <el-form-item label="VIN码" prop="vin">
-        <el-input v-model="car.vin" auto-complete="off"></el-input>
+        <el-input v-model="item.vin" auto-complete="off"></el-input>
       </el-form-item>
 
       <el-form-item label="车牌号" prop="plate">
-        <el-input v-model="car.plate" auto-complete="off"></el-input>
+        <el-input v-model="item.plate" auto-complete="off"></el-input>
       </el-form-item>
 
       <el-form-item label="车辆类型" prop="vehicleType">
-        <el-input v-model="car.vehicleType" auto-complete="off"></el-input>
+        <el-input v-model="item.vehicleType" auto-complete="off"></el-input>
       </el-form-item>
 
       <el-form-item label="所有人" prop="owner">
-        <el-input v-model="car.owner" auto-complete="off"></el-input>
+        <el-input v-model="item.owner" auto-complete="off"></el-input>
       </el-form-item>
 
       <el-form-item label="发动机号" prop="engine">
-        <el-input v-model="car.engine" auto-complete="off"></el-input>
+        <el-input v-model="item.engine" auto-complete="off"></el-input>
       </el-form-item>
 
       <el-form-item label="车型" prop="model">
-        <el-input v-model="car.model" auto-complete="off"></el-input>
+        <el-input v-model="item.model" auto-complete="off"></el-input>
       </el-form-item>
     </el-form>
 
@@ -86,8 +86,9 @@
         }
       };
       return {
+        ref: 'carForm',
         visible: false,
-        car: {},
+        item: {},
         rules: {
           vin: [
             {validator: checkVin, trigger: 'blur'}
@@ -114,8 +115,7 @@
       this.reset();
       this.$Bus.$on(editEvent, (res) => {
         this.reset();
-        this.user = res;
-        this.user.rePassword = res.password;
+        this.item = res;
         this.visible = true;
       });
     },
@@ -128,7 +128,7 @@
         });
       },
       save() {
-        this.$http.put(itemUrl, this.user,
+        this.$http.put(itemUrl, this.item,
           () => {
             this.$Bus.$emit(refreshEvent);
             this.visible = false;

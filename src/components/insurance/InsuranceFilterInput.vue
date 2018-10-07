@@ -23,7 +23,7 @@
     <el-row :gutter="gutter">
       <el-col :span="span">
         <el-button type="primary" size="small" @click="query">查询</el-button>
-        <el-button type="primary" size="small" @click="cleanQueryTemp">清空</el-button>
+        <el-button type="primary" size="small" @click="cleanParams">清空</el-button>
         <el-button type="primary" size="small" @click="add">增加</el-button>
         <el-button type="primary" size="small" @click="refresh">刷新</el-button>
       </el-col>

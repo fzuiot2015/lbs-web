@@ -1,22 +1,22 @@
 <template>
   <el-dialog title="编辑" :visible.sync="visible">
-    <el-form :model="rule" :rules="rules" status-icon ref="ruleForm"
+    <el-form :model="item" :rules="rules" status-icon :ref="ref"
              label-position="left" label-width="70px">
 
       <el-form-item label="保险公司" prop="insurer">
-        <el-input v-model="rule.insurer" auto-complete="off"></el-input>
+        <el-input v-model="item.insurer" auto-complete="off"></el-input>
       </el-form-item>
 
       <el-form-item label="油耗因数" prop="oilFactor">
-        <el-input v-model="rule.oilFactor" auto-complete="off"></el-input>
+        <el-input v-model="item.oilFactor" auto-complete="off"></el-input>
       </el-form-item>
 
       <el-form-item label="行程因数" prop="distanceFactor">
-        <el-input v-model="rule.distanceFactor" auto-complete="off"></el-input>
+        <el-input v-model="item.distanceFactor" auto-complete="off"></el-input>
       </el-form-item>
 
       <el-form-item label="事故因数" prop="accidentCountFactor">
-        <el-input v-model="rule.accidentCountFactor" auto-complete="off"></el-input>
+        <el-input v-model="item.accidentCountFactor" auto-complete="off"></el-input>
       </el-form-item>
 
     </el-form>
@@ -65,8 +65,9 @@
         }
       };
       return {
+        ref: 'ruleForm',
         visible: false,
-        rule: {},
+        item: {},
         rules: {
           insurer: [
             {validator: checkInsurer, trigger: 'blur'}
@@ -87,8 +88,7 @@
       this.reset();
       this.$Bus.$on(editEvent, (res) => {
         this.reset();
-        this.user = res;
-        this.user.rePassword = res.password;
+        this.item = res;
         this.visible = true;
       });
     },
@@ -101,7 +101,7 @@
         });
       },
       save() {
-        this.$http.put(itemUrl, this.user,
+        this.$http.put(itemUrl, this.item,
           () => {
             this.$Bus.$emit(refreshEvent);
             this.visible = false;
