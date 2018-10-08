@@ -29,7 +29,7 @@
     </el-form>
 
     <div slot="footer" class="dialog-footer">
-      <el-button :plain="true" @click="save()">确定</el-button>
+      <el-button :plain="true" @click="submit">确定</el-button>
       <el-button :plain="true" type="danger" v-on:click="close">取消</el-button>
     </div>
   </el-dialog>

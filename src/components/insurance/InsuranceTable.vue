@@ -1,11 +1,13 @@
 <template>
   <div>
     <el-table :data="items" border style="width: 100%;height:100%" ref="user-table">
-      <el-table-column label="ID" prop="id" sortable width="170"></el-table-column>
-      <el-table-column label="用户ID" prop="userId" sortable width="170"></el-table-column>
-      <el-table-column label="保险公司" prop="insurer" sortable width="170"></el-table-column>
-      <el-table-column label="保单号" prop="policyId" sortable width="170"></el-table-column>
-      <el-table-column label="保险电话" prop="insurancePhone" sortable></el-table-column>
+      <el-table-column label="ID" prop="id" sortable width="110"></el-table-column>
+      <el-table-column label="用户ID" prop="userId" sortable width="110"></el-table-column>
+      <el-table-column label="保险公司" prop="insurer" sortable width="110"></el-table-column>
+      <el-table-column label="保单号" prop="policyId" sortable></el-table-column>
+      <el-table-column label="保险电话" prop="insurancePhone" sortable width="170"></el-table-column>
+      <el-table-column label="开始时间" prop="startTime" sortable width="170"></el-table-column>
+      <el-table-column label="结束时间" prop="endTime" sortable width="170"></el-table-column>
       <el-table-column label="操作" width="160">
         <template slot-scope="scope">
           <el-button size="mini" @click="edit(scope.row)">编辑</el-button>

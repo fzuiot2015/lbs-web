@@ -4,7 +4,11 @@
              label-position="left" label-width="70px">
 
       <el-form-item label="时间" prop="time">
-        <el-input v-model="item.time" auto-complete="off"></el-input>
+        <el-date-picker
+          v-model="item.time"
+          type="date"
+          placeholder="选择日期">
+        </el-date-picker>
       </el-form-item>
 
       <el-form-item label="地址" prop="address">
@@ -30,7 +34,7 @@
     </el-form>
 
     <div slot="footer" class="dialog-footer">
-      <el-button :plain="true" @click="save">确定</el-button>
+      <el-button :plain="true" @click="submit">确定</el-button>
       <el-button :plain="true" type="danger" v-on:click="close">取消</el-button>
     </div>
   </el-dialog>

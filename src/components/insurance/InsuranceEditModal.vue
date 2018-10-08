@@ -18,10 +18,28 @@
       <el-form-item label="保险电话" prop="insurancePhone">
         <el-input v-model="item.insurancePhone" auto-complete="off"></el-input>
       </el-form-item>
+
+      <el-form-item label="开始时间" prop="startTime">
+        <el-date-picker
+          v-model="item.startTime"
+          type="date"
+          placeholder="选择日期">
+        </el-date-picker>
+      </el-form-item>
+
+      <el-form-item label="结束时间" prop="endTime">
+        <el-date-picker
+          v-model="item.endTime"
+          type="date"
+          placeholder="选择日期">
+        </el-date-picker>
+      </el-form-item>
+
     </el-form>
 
+
     <div slot="footer" class="dialog-footer">
-      <el-button :plain="true" @click="save">确定</el-button>
+      <el-button :plain="true" @click="submit">确定</el-button>
       <el-button :plain="true" type="danger" v-on:click="close">取消</el-button>
     </div>
   </el-dialog>
@@ -63,6 +81,23 @@
           callback();
         }
       };
+      const checkStartTime = (rule, value, callback) => {
+        if (!value) {
+          callback(new Error('请选择开始时间'));
+        } else {
+          callback();
+        }
+      };
+      const checkEndTime = (rule, value, callback) => {
+        if (!value) {
+          callback(new Error('请选择结束时间'));
+        } else if (this.item.startTime > this.item.endTime) {
+          callback(new Error('请选择结束时间应大于开始时间'));
+        } else {
+          callback();
+        }
+      };
+
       return {
         ref: 'insuranceForm',
         visible: false,
@@ -79,6 +114,12 @@
           ],
           insurancePhone: [
             {validator: checkInsurancePhone, trigger: 'blur'}
+          ],
+          startTime: [
+            {validator: checkStartTime, trigger: 'blur'}
+          ],
+          endTime: [
+            {validator: checkEndTime, trigger: 'blur'}
           ]
         }
       }
