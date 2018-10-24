@@ -6,6 +6,7 @@ import CarContent from '../components/car/CarContent'
 import AccidentContent from '../components/accident/AccidentContent'
 import InsuranceContent from "../components/insurance/InsuranceContent"
 import RuleContent from "../components/rule/RuleContent"
+import HabitContent from "../components/habit/HabitContent"
 import Login from '../components/Login'
 import store from '../assets/js/storage'
 
@@ -46,6 +47,11 @@ const router = new Router({
         {
           path: '/rule',
           component: RuleContent,
+          meta: {Login: true}
+        },
+        {
+          path: '/habit',
+          component: HabitContent,
           meta: {Login: true}
         }
       ]

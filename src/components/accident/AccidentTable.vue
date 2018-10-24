@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-table :data="items" height="400" border style="width: 100%" ref="user-table">
+    <el-table :data="items" height="400" border style="width: 100%">
       <el-table-column label="时间" prop="time" sortable width="170"></el-table-column>
       <el-table-column label="地址" prop="address" sortable width="170"></el-table-column>
       <el-table-column label="纬度" prop="lat" sortable width="170"></el-table-column>
@@ -9,7 +9,7 @@
       <el-table-column label="操作" width="160">
         <template slot-scope="scope">
           <el-button size="mini" @click="edit(scope.row)">编辑</el-button>
-          <el-button size="mini" type="danger" @click="deleteItem(scope.row)">删除</el-button>
+          <el-button size="mini" type="danger" @click="deleteConfirm(scope.row)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -29,7 +29,8 @@
   const refreshEvent = 'accidentRefreshEvent';
   const editEvent = 'accidentEditEvent';
 
-  const listUrl = '/api/accident/list';
+  //TODO:修改url
+  const listUrl = '/api/accident/query';
   const itemUrl = '/api/accident/';
 
   export default {
@@ -44,6 +45,7 @@
       }
     },
     mounted() {
+      this.params.userId = this.$route.query.userId;
       this.get();
       this.$Bus.$on(queryEvent, (queryParams) => {
         this.params = queryParams;

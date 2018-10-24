@@ -1,13 +1,15 @@
 <template>
   <div>
-    <el-table :data="items" border style="width: 100%;height:100%">
+    <el-table :data="items" border style="width: 100%;height:100%" ref="user-table">
       <el-table-column label="ID" prop="id" sortable width="170"></el-table-column>
-      <el-table-column label="VIN码" prop="vin" sortable width="170"></el-table-column>
-      <el-table-column label="车牌号" prop="plate" sortable width="170"></el-table-column>
-      <el-table-column label="车辆类型" prop="vehicleType" sortable width="170"></el-table-column>
-      <el-table-column label="所有人" prop="owner" sortable></el-table-column>
-      <el-table-column label="发动机号" prop="engine" sortable></el-table-column>
-      <el-table-column label="车型" prop="model" sortable></el-table-column>
+      <el-table-column label="用户ID" prop="userId" sortable width="170"></el-table-column>
+      <el-table-column label="油耗" prop="oil" sortable width="170"></el-table-column>
+      <el-table-column label="行程" prop="distance" sortable width="170"></el-table-column>
+      <el-table-column label="交通事故次数" prop="accidentCount" sortable width="170"></el-table-column>
+      <el-table-column label="时间" prop="time" sortable width="170"></el-table-column>
+      <el-table-column label="急加速次数" prop="harshAccelerationNum" sortable width="170"></el-table-column>
+      <el-table-column label="急刹车次数" prop="harshBreakingNum" sortable width="170"></el-table-column>
+      <el-table-column label="急转弯次数" prop="harshSteeringNum" sortable width="170"></el-table-column>
       <el-table-column label="操作" width="160">
         <template slot-scope="scope">
           <el-button size="mini" @click="edit(scope.row)">编辑</el-button>
@@ -16,27 +18,30 @@
       </el-table-column>
     </el-table>
 
+    <habit-chart></habit-chart>
+
     <el-pagination layout="prev, pager, next" v-on:current-change="changePage"
                    :page-size="5" :total="total" :current-page.sync="pageNum">
     </el-pagination>
 
-    <car-edit-modal></car-edit-modal>
+    <habit-edit-modal></habit-edit-modal>
   </div>
 </template>
 
 <script>
-  import CarEditModal from "./CarEditModal";
 
-  const queryEvent = 'carQueryEvent';
-  const refreshEvent = 'carRefreshEvent';
-  const editEvent = 'carEditEvent';
+  import HabitEditModal from "./HabitEditModal";
+  import HabitChart from "./HabitChart";
+  const queryEvent = 'habitQueryEvent';
+  const refreshEvent = 'habitRefreshEvent';
+  const editEvent = 'habitEditEvent';
 
-  const listUrl = '/api/car/list';
-  const itemUrl = '/api/car/';
+  const listUrl = '/api/habit/list';
+  const itemUrl = '/api/habit/';
 
   export default {
-    name: "CarTable",
-    components: {CarEditModal},
+    name: "HabitTable",
+    components: {HabitChart, HabitEditModal},
     data() {
       return {
         items: [],
@@ -46,7 +51,7 @@
       }
     },
     mounted() {
-      this.params.owner = this.$route.query.userId;
+      this.params.userId = this.$route.query.userId;
       this.get();
       this.$Bus.$on(queryEvent, (queryParams) => {
         this.params = queryParams;

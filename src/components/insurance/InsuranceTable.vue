@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-table :data="items" border style="width: 100%;height:100%" ref="user-table">
+    <el-table :data="items" border style="width: 100%;height:100%">
       <el-table-column label="ID" prop="id" sortable width="110"></el-table-column>
       <el-table-column label="用户ID" prop="userId" sortable width="110"></el-table-column>
       <el-table-column label="保险公司" prop="insurer" sortable width="110"></el-table-column>
@@ -11,7 +11,7 @@
       <el-table-column label="操作" width="160">
         <template slot-scope="scope">
           <el-button size="mini" @click="edit(scope.row)">编辑</el-button>
-          <el-button size="mini" type="danger" @click="deleteItem(scope.row)">删除</el-button>
+          <el-button size="mini" type="danger" @click="deleteConfirm(scope.row)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -46,6 +46,7 @@
       }
     },
     mounted() {
+      this.params.userId = this.$route.query.userId;
       this.get();
       this.$Bus.$on(queryEvent, (queryParams) => {
         this.params = queryParams;

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-table :data="items" border style="width: 100%;height:100%" ref="user-table">
+    <el-table :data="items" border style="width: 100%;height:100%">
       <el-table-column label="ID" prop="id" sortable width="170"></el-table-column>
       <el-table-column label="保险公司" prop="insurer" sortable width="170"></el-table-column>
       <el-table-column label="油耗因数" prop="oilFactor" sortable width="170"></el-table-column>

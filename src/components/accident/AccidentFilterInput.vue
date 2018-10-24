@@ -8,6 +8,22 @@
       </el-col>
 
       <el-col :span="span">
+          <el-date-picker
+            v-model="params.startTime"
+            type="date"
+            value-format="yyyy-MM-dd"
+            placeholder="开始日期">
+          </el-date-picker>
+
+          <el-date-picker
+            v-model="params.endTime"
+            type="date"
+            value-format="yyyy-MM-dd"
+            placeholder="结束日期">
+          </el-date-picker>
+      </el-col>
+
+      <el-col :span="span">
         <el-button type="primary" size="small" @click="query">查询</el-button>
         <el-button type="primary" size="small" @click="cleanParams">清空</el-button>
         <el-button type="primary" size="small" @click="add">增加</el-button>

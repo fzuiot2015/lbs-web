@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-table :data="items" style="width: 100%;height:100%" ref="user-table">
+    <el-table :data="items" style="width: 100%;height:100%">
 
       <el-table-column type="expand">
         <template slot-scope="scope">

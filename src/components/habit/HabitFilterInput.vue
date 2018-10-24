@@ -6,18 +6,6 @@
           <template slot="prepend">用户ID</template>
         </el-input>
       </el-col>
-
-      <el-col :span="span">
-        <el-input v-model="params.insurer" placeholder="请输入内容" prefix-icon="el-icon-search" clearable>
-          <template slot="prepend">保险公司</template>
-        </el-input>
-      </el-col>
-
-      <el-col :span="span">
-        <el-input v-model="params.policyId" placeholder="请输入内容" prefix-icon="el-icon-search" clearable>
-          <template slot="prepend">保单号</template>
-        </el-input>
-      </el-col>
     </el-row>
 
     <el-row :gutter="gutter">
@@ -32,12 +20,12 @@
 </template>
 
 <script>
-  const queryEvent = 'insuranceQueryEvent';
-  const refreshEvent = 'insuranceRefreshEvent';
-  const editEvent = 'insuranceEditEvent';
+  const queryEvent = 'habitQueryEvent';
+  const refreshEvent = 'habitRefreshEvent';
+  const editEvent = 'habitEditEvent';
 
   export default {
-    name: 'InsuranceFilterInput',
+    name: 'HabitFilterInput',
     data() {
       return {
         params: {},
