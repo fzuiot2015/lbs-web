@@ -1,57 +1,45 @@
 <template>
   <div>
-    <el-table :data="items" border style="width: 100%;height:100%" ref="user-table">
-      <el-table-column label="ID" prop="id" sortable width="110"></el-table-column>
-      <el-table-column label="用户ID" prop="userId" sortable width="110"></el-table-column>
-      <el-table-column label="保险公司" prop="insurer" sortable width="110"></el-table-column>
-      <el-table-column label="保单号" prop="policyId" sortable></el-table-column>
-      <el-table-column label="保险电话" prop="insurancePhone" sortable width="170"></el-table-column>
-      <el-table-column label="开始时间" prop="startTime" sortable width="170"></el-table-column>
-      <el-table-column label="结束时间" prop="endTime" sortable width="170"></el-table-column>
+    <el-table :data="items">
+
+      <el-table-column v-for="(item,key) in keys" :key="key"
+                       :prop="item.prop" :label="item.label"
+                       sortable>
+      </el-table-column>
+
       <el-table-column label="操作" width="160">
         <template slot-scope="scope">
           <el-button size="mini" @click="edit(scope.row)">编辑</el-button>
-          <el-button size="mini" type="danger" @click="deleteItem(scope.row)">删除</el-button>
+          <el-button size="mini" type="danger" @click="deleteConfirm(scope.row)">删除</el-button>
         </template>
       </el-table-column>
+
     </el-table>
 
     <el-pagination layout="prev, pager, next" v-on:current-change="changePage"
                    :page-size="5" :total="total" :current-page.sync="pageNum">
     </el-pagination>
-
-    <insurance-edit-modal></insurance-edit-modal>
   </div>
 </template>
 
 <script>
-  import InsuranceEditModal from "./InsuranceEditModal";
-
-  const queryEvent = 'insuranceQueryEvent';
-  const refreshEvent = 'insuranceRefreshEvent';
-  const editEvent = 'insuranceEditEvent';
-
-  const listUrl = '/api/insurance/list';
-  const itemUrl = '/api/insurance/';
-
   export default {
-    name: 'InsuranceTable',
-    components: {InsuranceEditModal},
+    name: 'LbsTable',
     data() {
       return {
-        items: [],
         params: {},
         pageNum: 0,
-        total: 0,
-      }
+        total: 0
+      };
     },
+    props: ['items', 'keys', 'queryEvent', 'refreshEvent', 'editEvent', 'listUrl', 'itemUrl'],
     mounted() {
       this.get();
-      this.$Bus.$on(queryEvent, (queryParams) => {
+      this.$Bus.$on(this.queryEvent, (queryParams) => {
         this.params = queryParams;
         this.get()
       });
-      this.$Bus.$on(refreshEvent, () => {
+      this.$Bus.$on(this.refreshEvent, () => {
         this.params.pageNum = 0;
         this.get();
       });
@@ -59,7 +47,7 @@
     methods: {
       //通过HttpGet方法从服务器获取数据
       get() {
-        this.$http.get(listUrl, this.params,
+        this.$http.get(this.listUrl, this.params,
           (data) => this.setData(data),
           (res) => this.$message.error('数据获取失败[' + res.status + ']:' + res.message)
         )
@@ -77,7 +65,7 @@
       },
       //触发编辑框的编辑事件
       edit(item) {
-        this.$Bus.$emit(editEvent, item);
+        this.$Bus.$emit(this.editEvent, item);
       },
       //弹出删除确认窗口
       deleteConfirm(item) {
@@ -93,7 +81,7 @@
       },
       //删除指定数据项
       delete(item) {
-        this.$http.delete(itemUrl, item.id,
+        this.$http.delete(this.itemUrl, item.id,
           () => {
             this.$message.success('删除成功!');
             this.get();
@@ -105,4 +93,3 @@
     }
   }
 </script>
-

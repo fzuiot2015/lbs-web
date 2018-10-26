@@ -2,6 +2,13 @@
   <div>
     <el-row :gutter="gutter">
       <el-col :span="span">
+
+
+        <el-input v-model="params.username" placeholder="请输入内容" prefix-icon="el-icon-search" clearable>
+          <template slot="prepend">账号</template>
+        </el-input>
+
+
         <el-input v-model="params.username" placeholder="请输入内容" prefix-icon="el-icon-search" clearable>
           <template slot="prepend">账号</template>
         </el-input>

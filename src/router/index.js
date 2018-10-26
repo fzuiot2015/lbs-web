@@ -1,12 +1,12 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Index from '../components/Index'
-import UserContent from '../components/user/UserContent'
-import CarContent from '../components/car/CarContent'
-import AccidentContent from '../components/accident/AccidentContent'
-import InsuranceContent from "../components/insurance/InsuranceContent"
-import RuleContent from "../components/rule/RuleContent"
-import Login from '../components/Login'
+import Index from '../view/Index'
+import UserContent from '../view/user/UserContent'
+import CarContent from '../view/car/CarContent'
+import AccidentContent from '../view/accident/AccidentContent'
+import InsuranceContent from "../view/insurance/InsuranceContent"
+import RuleContent from "../view/rule/RuleContent"
+import Login from '../view/Login'
 import store from '../assets/js/storage'
 
 Vue.use(Router);

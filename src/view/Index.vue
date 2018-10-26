@@ -8,15 +8,14 @@
 </template>
 
 <script>
-  import SideBar from "./SideBar";
+  import SideBar from "../components/SideBar";
   import UserContent from "./user/UserContent";
   import CarContent from "./car/CarContent";
   import AccidentContent from "./accident/AccidentContent";
-  import TopBar from "./TopBar";
 
   export default {
     name: "Index",
-    components: {TopBar, AccidentContent, CarContent, UserContent, SideBar},
+    components: { AccidentContent, CarContent, UserContent, SideBar},
   }
 </script>
 

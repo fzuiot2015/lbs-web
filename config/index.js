@@ -1,8 +1,8 @@
-'use strict'
+'use strict';
 // Template version: 1.3.1
 // see http://vuejs-templates.github.io/webpack for documentation.
 
-const path = require('path')
+const path = require('path');
 
 module.exports = {
   dev: {
@@ -12,7 +12,8 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {      //TODO:{}内为配置内容
       '/api': {
-        target: 'http://localhost:8081',
+        // target: 'http://localhost:8081',
+        target: 'http://47.99.168.1:8081',
         changeOrigin: true,
         pathRewrite: {
           '^/api': '/'
@@ -74,4 +75,4 @@ module.exports = {
     // Set to `true` or `false` to always turn it on or off
     bundleAnalyzerReport: process.env.npm_config_report
   }
-}
+};
