@@ -5,7 +5,6 @@ import UserContent from '../view/user/UserContent'
 import CarContent from '../view/car/CarContent'
 import AccidentContent from '../view/accident/AccidentContent'
 import InsuranceContent from "../view/insurance/InsuranceContent"
-import RuleContent from "../view/rule/RuleContent"
 import Login from '../view/Login'
 import store from '../assets/js/storage'
 
@@ -41,11 +40,6 @@ const router = new Router({
         {
           path: '/insurance',
           component: InsuranceContent,
-          meta: {Login: true}
-        },
-        {
-          path: '/rule',
-          component: RuleContent,
           meta: {Login: true}
         }
       ]

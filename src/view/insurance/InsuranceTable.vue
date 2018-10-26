@@ -1,11 +1,11 @@
 <template>
-  <lbs-table :items="items" :keys="keys" :query-event="queryEvent"
+  <lbs-table :items="items" :columns="columns" :query-event="queryEvent"
              :refresh-event="refreshEvent" :edit-event="editEvent"
              :list-url="listUrl" :item-url="itemUrl"></lbs-table>
 </template>
 
 <script>
-  import LbsTable from "../table/table";
+  import LbsTable from "../../components/Table";
 
   export default {
     name: 'InsuranceTable',
@@ -13,7 +13,7 @@
     data() {
       return {
         items: [],
-        keys: [
+        columns: [
           {label: 'ID', prop: 'id'},
           {label: '用户ID', prop: 'userId'},
           {label: '保险公司', prop: 'insurer'},

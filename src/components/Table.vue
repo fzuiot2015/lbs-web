@@ -1,11 +1,11 @@
 <template>
   <div>
-    <el-table :data="items" border style="width: 100%;height:100%" ref="user-table">
-      <el-table-column label="ID" prop="id" sortable width="170"></el-table-column>
-      <el-table-column label="保险公司" prop="insurer" sortable width="170"></el-table-column>
-      <el-table-column label="油耗因数" prop="oilFactor" sortable width="170"></el-table-column>
-      <el-table-column label="行程因数" prop="distanceFactor" sortable width="170"></el-table-column>
-      <el-table-column label="事故因数" prop="accidentCountFactor" sortable width="170"></el-table-column>
+    <el-table :data="items">
+
+      <el-table-column v-for="(column,key) in columns" :key="key"
+                       :prop="column.prop" :label="column.label"
+                       sortable>
+      </el-table-column>
 
       <el-table-column label="操作" width="160">
         <template slot-scope="scope">
@@ -13,44 +13,33 @@
           <el-button size="mini" type="danger" @click="deleteConfirm(scope.row)">删除</el-button>
         </template>
       </el-table-column>
+
     </el-table>
 
     <el-pagination layout="prev, pager, next" v-on:current-change="changePage"
                    :page-size="5" :total="total" :current-page.sync="pageNum">
     </el-pagination>
-
-    <rule-edit-modal></rule-edit-modal>
   </div>
 </template>
 
 <script>
-  import RuleEditModal from "./RuleEditModal";
-
-  const queryEvent = 'ruleQueryEvent';
-  const refreshEvent = 'ruleRefreshEvent';
-  const editEvent = 'ruleEditEvent';
-
-  const listUrl = '/api/rule/list';
-  const itemUrl = '/api/rule/';
-
   export default {
-    name: "RuleTable",
-    components: {RuleEditModal},
+    name: 'LbsTable',
     data() {
       return {
-        items: [],
         params: {},
         pageNum: 0,
-        total: 0,
-      }
+        total: 0
+      };
     },
+    props: ['items', 'columns', 'queryEvent', 'refreshEvent', 'editEvent', 'listUrl', 'itemUrl'],
     mounted() {
       this.get();
-      this.$Bus.$on(queryEvent, (queryParams) => {
+      this.$Bus.$on(this.queryEvent, (queryParams) => {
         this.params = queryParams;
         this.get()
       });
-      this.$Bus.$on(refreshEvent, () => {
+      this.$Bus.$on(this.refreshEvent, () => {
         this.params.pageNum = 0;
         this.get();
       });
@@ -58,7 +47,7 @@
     methods: {
       //通过HttpGet方法从服务器获取数据
       get() {
-        this.$http.get(listUrl, this.params,
+        this.$http.get(this.listUrl, this.params,
           (data) => this.setData(data),
           (res) => this.$message.error('数据获取失败[' + res.status + ']:' + res.message)
         )
@@ -76,7 +65,7 @@
       },
       //触发编辑框的编辑事件
       edit(item) {
-        this.$Bus.$emit(editEvent, item);
+        this.$Bus.$emit(this.editEvent, item);
       },
       //弹出删除确认窗口
       deleteConfirm(item) {
@@ -92,7 +81,7 @@
       },
       //删除指定数据项
       delete(item) {
-        this.$http.delete(itemUrl, item.id,
+        this.$http.delete(this.itemUrl, item.id,
           () => {
             this.$message.success('删除成功!');
             this.get();
@@ -104,4 +93,3 @@
     }
   }
 </script>
-
