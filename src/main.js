@@ -8,7 +8,6 @@ import util from './assets/js/util.js'
 import http from './assets/js/http.js'
 import Bus from './eventBus.js'
 import store from './assets/js/storage.js'
-import echarts from 'echarts'
 
 Vue.use(router);
 Vue.use(ElementUI);
@@ -17,7 +16,6 @@ Vue.prototype.$util = util;
 Vue.prototype.$http = http;
 Vue.prototype.$Bus = Bus;
 Vue.prototype.$store = store;
-Vue.prototype.$echarts = echarts;
 
 Vue.config.productionTip = false;
 
