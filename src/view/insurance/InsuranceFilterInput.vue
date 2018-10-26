@@ -43,6 +43,7 @@
         params: {},
         gutter: 20,
         span: 8,
+        disable: false
       }
     },
     mounted() {

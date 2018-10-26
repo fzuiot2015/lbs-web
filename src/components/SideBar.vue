@@ -7,6 +7,11 @@
         <span :slot="title">{{item.name}}</span>
       </el-menu-item>
 
+      <el-menu-item index="/habit">
+        <i class="el-icon-document"></i>
+        <span slot="title">驾驶行为</span>
+      </el-menu-item>
+
       <el-menu-item index="/" @click="logout">
         <i class="el-icon-circle-close"></i>
         <span slot="title">退出</span>
