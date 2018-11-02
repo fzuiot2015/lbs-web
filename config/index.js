@@ -12,11 +12,11 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {      //TODO:{}内为配置内容
       '/api': {
-        // target: 'http://localhost:8081',
-        target: 'http://47.99.168.1:8081',
+        target: 'http://localhost:8081',
+        // target: 'http://47.99.168.1:8081',
         changeOrigin: true,
         pathRewrite: {
-          '^/api': '/'
+          '^/api': ''
         }
       },
 

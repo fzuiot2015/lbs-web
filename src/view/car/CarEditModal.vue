@@ -15,8 +15,8 @@
         <el-input v-model="item.vehicleType" auto-complete="off"></el-input>
       </el-form-item>
 
-      <el-form-item label="所有人" prop="owner">
-        <el-input v-model="item.owner" auto-complete="off"></el-input>
+      <el-form-item label="所有人" prop="userId">
+        <el-input v-model="item.userId" auto-complete="off"></el-input>
       </el-form-item>
 
       <el-form-item label="发动机号" prop="engine">
@@ -64,7 +64,7 @@
           callback();
         }
       };
-      const checkOwner = (rule, value, callback) => {
+      const checkUserId = (rule, value, callback) => {
         if (!value) {
           callback(new Error('请输入所有人'));
         } else {
@@ -99,8 +99,8 @@
           vehicleType: [
             {validator: checkVehicleType, trigger: 'blur'}
           ],
-          owner: [
-            {validator: checkOwner, trigger: 'blur'}
+          userId: [
+            {validator: checkUserId, trigger: 'blur'}
           ],
           engine: [
             {validator: checkEngine, trigger: 'blur'}

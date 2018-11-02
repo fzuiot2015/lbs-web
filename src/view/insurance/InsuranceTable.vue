@@ -25,7 +25,7 @@
         queryEvent: 'insuranceQueryEvent',
         refreshEvent: 'insuranceRefreshEvent',
         editEvent: 'insuranceEditEvent',
-        listUrl: '/api/insurance/list',
+        listUrl: '/api/insurance/',
         itemUrl: '/api/insurance/'
       };
     },

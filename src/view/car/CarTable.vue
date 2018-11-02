@@ -18,14 +18,14 @@
           {label: 'VIN码', prop: 'vin'},
           {label: '车牌号', prop: 'plate'},
           {label: '车辆类型', prop: 'vehicleType'},
-          {label: '所有人', prop: 'owner'},
+          {label: '所有人', prop: 'userId'},
           {label: '发动机号', prop: 'engine'},
           {label: '车型', prop: 'model'},
         ],
         queryEvent: 'carQueryEvent',
         refreshEvent: 'carRefreshEvent',
         editEvent: 'carEditEvent',
-        listUrl: '/api/car/list',
+        listUrl: '/api/car/',
         itemUrl: '/api/car/'
       };
     },

@@ -24,7 +24,7 @@
         queryEvent: 'userQueryEvent',
         refreshEvent: 'userRefreshEvent',
         editEvent: 'userEditEvent',
-        listUrl: '/api/user/list',
+        listUrl: '/api/user/',
         itemUrl: '/api/user/'
       };
     },

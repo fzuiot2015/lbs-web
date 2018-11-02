@@ -23,7 +23,7 @@
         queryEvent: 'accidentQueryEvent',
         refreshEvent: 'accidentRefreshEvent',
         editEvent: 'accidentEditEvent',
-        listUrl: '/api/accident/list',
+        listUrl: '/api/accident/',
         itemUrl: '/api/accident/'
       };
     },
