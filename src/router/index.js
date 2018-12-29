@@ -10,7 +10,6 @@ import Login from '../view/Login'
 import store from '../assets/js/storage'
 
 Vue.use(Router);
-
 const router = new Router({
   routes: [
     {

@@ -1,7 +1,6 @@
 <template>
   <div>
     <el-table :data="items">
-
       <el-table-column v-for="(column,key) in columns" :key="key"
                        :prop="column.prop" :label="column.label"
                        sortable>
@@ -15,7 +14,6 @@
       </el-table-column>
 
     </el-table>
-
     <el-pagination layout="prev, pager, next" v-on:current-change="changePage"
                    :page-size="5" :total="total" :current-page.sync="pageNum">
     </el-pagination>
@@ -89,7 +87,6 @@
           (res) => this.$message.error('删除失败[' + res.status + ']:' + res.message)
         )
       }
-
     }
   }
 </script>

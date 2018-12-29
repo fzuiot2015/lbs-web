@@ -4,7 +4,7 @@
 
       <el-menu-item v-for="(item,key) in items" :index="item.index" :key="key">
         <i :class="item.icon"></i>
-        <span :slot="title">{{item.name}}</span>
+        <span>{{item.name}}</span>
       </el-menu-item>
 
       <el-menu-item index="/" @click="logout">

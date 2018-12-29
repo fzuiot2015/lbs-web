@@ -9,13 +9,10 @@
 
 <script>
   import SideBar from "../components/SideBar";
-  import UserContent from "./user/UserContent";
-  import CarContent from "./car/CarContent";
-  import AccidentContent from "./accident/AccidentContent";
 
   export default {
     name: "Index",
-    components: { AccidentContent, CarContent, UserContent, SideBar},
+    components: {SideBar},
   }
 </script>
 
