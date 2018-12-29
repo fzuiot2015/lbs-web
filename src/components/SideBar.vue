@@ -26,6 +26,7 @@
           {index: '/car', name: '车辆信息', icon: 'el-icon-info'},
           {index: '/accident', name: '事故信息', icon: 'el-icon-warning'},
           {index: '/insurance', name: '保险信息', icon: 'el-icon-document'},
+          {index: '/analyze', name: '保险分析', icon: 'el-icon-document'},
         ]
       }
     },
