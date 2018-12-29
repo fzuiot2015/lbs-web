@@ -27,9 +27,6 @@
         <el-input v-model="user.driverLicense" auto-complete="off"></el-input>
       </el-form-item>
 
-      <el-form-item label="住址" prop="address">
-        <el-input v-model="user.address" auto-complete="off"></el-input>
-      </el-form-item>
     </el-form>
 
     <div slot="footer" class="dialog-footer">
@@ -91,13 +88,6 @@
           callback();
         }
       };
-      const checkAddress = (rule, value, callback) => {
-        if (!value) {
-          callback(new Error('请输入地址'));
-        } else {
-          callback();
-        }
-      };
       return {
         ref: 'userForm',
         visible: false,
@@ -125,10 +115,6 @@
           driverLicense:
             [
               {validator: checkDriverLicense, trigger: 'blur'}
-            ],
-          address:
-            [
-              {validator: checkAddress, trigger: 'blur'}
             ]
         }
       }

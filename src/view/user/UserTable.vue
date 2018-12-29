@@ -18,13 +18,12 @@
           {label: '账号', prop: 'username'},
           {label: '姓名', prop: 'name'},
           {label: '电话', prop: 'phone'},
-          {label: '驾驶证号', prop: 'driverLicense'},
-          {label: '住址', prop: 'address'},
+          {label: '驾驶证号', prop: 'driverLicense'}
         ],
         queryEvent: 'userQueryEvent',
         refreshEvent: 'userRefreshEvent',
         editEvent: 'userEditEvent',
-        listUrl: '/api/user/',
+        listUrl: '/api/user/list/',
         itemUrl: '/api/user/'
       };
     },
