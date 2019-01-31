@@ -3,7 +3,7 @@
     <el-table :data="items">
       <el-table-column v-for="(column,key) in columns" :key="key"
                        :prop="column.prop" :label="column.label"
-                       sortable>
+                       sortable value-format="timestamp">
       </el-table-column>
 
       <el-table-column label="操作" width="160">

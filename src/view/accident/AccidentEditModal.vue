@@ -6,8 +6,8 @@
       <el-form-item label="时间" prop="time">
         <el-date-picker
           v-model="item.time"
-          type="date"
-          value-format="yyyy-MM-dd"
+          type="datetime"
+          value-format="yyyy-MM-dd HH:mm:ss"
           placeholder="选择日期">
         </el-date-picker>
       </el-form-item>
@@ -58,35 +58,35 @@
       };
       const checkAddress = (rule, value, callback) => {
         if (!value) {
-          callback(new Error('请输入时间'));
+          callback(new Error('请输入地址'));
         } else {
           callback();
         }
       };
       const checkLat = (rule, value, callback) => {
         if (!value) {
-          callback(new Error('请输入时间'));
+          callback(new Error('请输入纬度'));
         } else {
           callback();
         }
       };
       const checkLng = (rule, value, callback) => {
         if (!value) {
-          callback(new Error('请输入时间'));
+          callback(new Error('请输入经度'));
         } else {
           callback();
         }
       };
       const checkUserId = (rule, value, callback) => {
         if (!value) {
-          callback(new Error('请输入时间'));
+          callback(new Error('请输入用户id'));
         } else {
           callback();
         }
       };
       const checkDescription = (rule, value, callback) => {
         if (!value) {
-          callback(new Error('请输入时间'));
+          callback(new Error('请输入详情描述'));
         } else {
           callback();
         }

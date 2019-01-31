@@ -1,5 +1,8 @@
 import axios from 'axios'
 
+/**
+ * HTTP请求工具类
+ */
 export default {
   callback(res, onSuccess, onFail) {
     const data = res.data;

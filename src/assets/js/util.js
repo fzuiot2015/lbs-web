@@ -1,3 +1,6 @@
+/**
+ * 参数处理工具类
+ */
 export default {
   trimObject(obj) {
     const newObj = {};
