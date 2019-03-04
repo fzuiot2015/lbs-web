@@ -30,7 +30,7 @@
 
 <script>
   export default {
-    name: "MyChart",
+    name: "AnalyzeChart",
     data() {
       return {
         item: {

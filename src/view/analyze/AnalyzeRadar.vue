@@ -4,7 +4,7 @@
 
 <script>
   export default {
-    name: "Radar",
+    name: "AnalyzeRadar",
     data() {
       return {
         item: {
@@ -69,7 +69,7 @@
               },
               data : [
                 {
-                  value : [97, 32, 74, 95, 88, 92],
+                  value : [197, 32, 74, 95, 88, 92],
                   name : '罗纳尔多'
                 }
               ]

@@ -1,16 +1,16 @@
 <template>
   <el-main>
-    <my-chart></my-chart>
-    <radar></radar>
+    <analyze-chart></analyze-chart>
+    <analyze-popover></analyze-popover>
   </el-main>
 </template>
 
 <script>
-  import MyChart from "./AnalyzeChart";
-  import Radar from "./AnalyzeRadar";
+  import AnalyzeChart from "./AnalyzeChart";
+  import AnalyzePopover from "./AnalyzePopover";
 
   export default {
-    name: "InsuranceContent",
-    components: {Radar, MyChart}
+    name: "AnalyzeContent",
+    components: {AnalyzePopover, AnalyzeChart},
   }
 </script>
