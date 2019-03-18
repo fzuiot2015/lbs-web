@@ -46,7 +46,7 @@
     },
     methods: {
       getData() {
-        this.$http.get('/api/analyse', this.item,
+        this.$http.get('/api/analyse/insurance', this.item,
           (data) => {
             let series;
             series = data.result;

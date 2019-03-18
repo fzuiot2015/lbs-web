@@ -1,5 +1,5 @@
 <template>
-    <div id="radar" style="height: 500px;width: 1000px"></div>
+  <div id="radar" style="height: 500px;width: 1000px"></div>
 </template>
 
 <script>
@@ -16,49 +16,43 @@
       }
     },
     mounted() {
-      this.showData()
+      this.getData()
     },
     methods: {
-      showData() {
+      getData() {
+        this.$http.get('/api/analyse/behavior', this.item,
+          (data) => {
+            let value;
+            value = data.result;
+            this.showData(value);
+          },
+          (res) => this.$message.error('数据获取失败[' + res.status + ']:' + res.message)
+        );
+      },
+      showData(value) {
         const myChart = this.$echarts.init(document.getElementById("radar"));
         myChart.setOption({
-          title : {
-            text: '罗纳尔多 vs 舍普琴科',
-            subtext: '完全实况球员数据'
+          title: {
+            text: '驾驶行为分析',
           },
-          tooltip : {
-            trigger: 'axis'
-          },
-          legend: {
-            x : 'center',
-            data:['罗纳尔多']
-          },
-          toolbox: {
-            show : true,
-            feature : {
-              mark : {show: true},
-              dataView : {show: true, readOnly: false},
-              restore : {show: true},
-              saveAsImage : {show: true}
-            }
-          },
-          calculable : true,
-          polar : [
+          tooltip: {},
+          calculable: true,
+          radar: [
             {
-              indicator : [
-                {text : '进攻', max  : 100},
-                {text : '防守', max  : 100},
-                {text : '体能', max  : 100},
-                {text : '速度', max  : 100},
-                {text : '力量', max  : 100},
-                {text : '技巧', max  : 100}
+              indicator: [
+                {text: '行程里程(m)', max: 1000},
+                {text: '平均时速(km/h)', max: 2},
+                {text: '超速次数', max: 10},
+                {text: '急加速次数', max: 10},
+                {text: '急刹车次数', max: 10},
+                {text: '急转弯次数', max: 10}
               ],
-              radius : 130
+              radius: 130
             }
           ],
-          series : [
+          series: [
             {
-              name: '完全实况球员数据',
+              name: '驾驶行为分析',
               type: 'radar',
               itemStyle: {
                 normal: {
@@ -67,10 +61,9 @@
                   }
                 }
               },
-              data : [
+              data: [
                 {
-                  value : [197, 32, 74, 95, 88, 92],
-                  name : '罗纳尔多'
+                  value: value
                 }
               ]
             }
