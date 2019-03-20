@@ -9,16 +9,16 @@
 
       <el-col :span="span">
           <el-date-picker
-            v-model="params.startTime"
-            type="date"
-            value-format="yyyy-MM-dd"
+            v-model="params.minTime"
+            type="datetime"
+            value-format="yyyy-MM-dd HH:mm:ss"
             placeholder="开始日期">
           </el-date-picker>
 
           <el-date-picker
-            v-model="params.endTime"
-            type="date"
-            value-format="yyyy-MM-dd"
+            v-model="params.maxTime"
+            type="datetime"
+            value-format="yyyy-MM-dd HH:mm:ss"
             placeholder="结束日期">
           </el-date-picker>
       </el-col>
