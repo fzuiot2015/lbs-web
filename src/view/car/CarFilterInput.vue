@@ -23,7 +23,7 @@
 
     <el-row :gutter="gutter">
       <el-col :span="span">
-        <el-input v-model="params.owner" placeholder="请输入内容" prefix-icon="el-icon-search" clearable>
+        <el-input v-model="params.userId" placeholder="请输入内容" prefix-icon="el-icon-search" clearable>
           <template slot="prepend">所有人</template>
         </el-input>
       </el-col>
