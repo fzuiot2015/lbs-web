@@ -1,5 +1,6 @@
 <template>
-  <el-dialog title="编辑" :visible.sync="visible">
+  <el-dialog title="编辑" :visible.sync="visible"
+             :before-close="handleClose">
     <el-form :model="item" :rules="rules" status-icon :ref="ref"
              label-position="left" label-width="70px">
 
@@ -142,7 +143,7 @@
         });
       },
       save() {
-        this.$http.put(itemUrl, this.item,
+        this.$http.post(itemUrl, this.item,
           () => {
             this.$Bus.$emit(refreshEvent);
             this.visible = false;
@@ -159,8 +160,14 @@
         if (ref !== undefined) {
           ref.resetFields();
         }
+      },
+      handleClose(done) {
+        this.$confirm('确认关闭？')
+          .then(()=> {
+            done();
+          })
+          .catch(_ => {});
       }
-
     }
   }
 </script>

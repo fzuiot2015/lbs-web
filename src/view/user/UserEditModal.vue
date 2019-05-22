@@ -1,5 +1,6 @@
 <template>
-  <el-dialog title="编辑" :visible.sync="visible">
+  <el-dialog title="编辑" :visible.sync="visible"
+             :before-close="handleClose">
     <el-form :model="user" :rules="rules" status-icon :ref="ref"
              label-position="left" label-width="70px">
 
@@ -124,7 +125,10 @@
       this.$Bus.$on(editEvent, (res) => {
         this.reset();
         this.user = res;
-        this.user.rePassword = res.password;
+        console.log(res.password);
+        if (res.password!==undefined) {
+          this.user.rePassword = res.password;
+        }
         this.visible = true;
       });
     },
@@ -137,7 +141,7 @@
         });
       },
       save() {
-        this.$http.put(itemUrl, this.user,
+        this.$http.post(itemUrl, this.user,
           () => {
             this.$Bus.$emit(refreshEvent);
             this.visible = false;
@@ -154,7 +158,13 @@
         if (ref !== undefined) {
           ref.resetFields();
         }
-
+      },
+      handleClose(done) {
+        this.$confirm('确认关闭？')
+          .then(()=> {
+            done();
+          })
+          .catch(_ => {});
       }
     }
   }
