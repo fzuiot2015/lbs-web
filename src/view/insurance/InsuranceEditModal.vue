@@ -50,7 +50,7 @@
 <script>
   const refreshEvent = 'insuranceRefreshEvent';
   const editEvent = 'insuranceEditEvent';
-  const itemUrl = '/api/insurance/';
+  const itemUrl = '/insurance/';
 
   export default {
     name: 'InsuranceEditModal',

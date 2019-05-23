@@ -25,8 +25,8 @@
         queryEvent: 'carQueryEvent',
         refreshEvent: 'carRefreshEvent',
         editEvent: 'carEditEvent',
-        listUrl: '/api/car/',
-        itemUrl: '/api/car/'
+        listUrl: '/car/',
+        itemUrl: '/car/'
       };
     },
   }

@@ -2,7 +2,6 @@
   <el-main>
     <analyze-chart></analyze-chart>
     <analyze-popover></analyze-popover>
-    <analyze-radar></analyze-radar>
   </el-main>
 </template>
 

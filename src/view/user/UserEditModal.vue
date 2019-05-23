@@ -40,7 +40,7 @@
 <script>
   const refreshEvent = 'userRefreshEvent';
   const editEvent = 'userEditEvent';
-  const itemUrl = '/api/user/';
+  const itemUrl = '/user/';
 
   export default {
     name: 'UserEditModal',

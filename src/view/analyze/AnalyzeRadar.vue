@@ -20,7 +20,7 @@
     },
     methods: {
       getData() {
-        this.$http.get('/api/analyse/behavior', this.item,
+        this.$http.get('/analyse/behavior', this.item,
           (data) => {
             let value;
             value = data.result;

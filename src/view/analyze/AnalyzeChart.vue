@@ -24,13 +24,16 @@
     </el-row>
 
     <div id="analyzeChart" style="height: 500px;width: 1000px"></div>
+    <!--<analyze-radar></analyze-radar>-->
 
   </div>
 </template>
 
 <script>
+  import AnalyzeRadar from "./AnalyzeRadar";
   export default {
     name: "AnalyzeChart",
+    components: {AnalyzeRadar},
     data() {
       return {
         item: {
@@ -46,7 +49,7 @@
     },
     methods: {
       getData() {
-        this.$http.get('/api/analyse/insurance', this.item,
+        this.$http.get('/analyse/insurance', this.item,
           (data) => {
             let series;
             series = data.result;

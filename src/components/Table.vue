@@ -15,7 +15,7 @@
 
     </el-table>
     <el-pagination layout="prev, pager, next" v-on:current-change="changePage"
-                   :page-size="5" :total="total" :current-page.sync="pageNum">
+                   :page-size="10" :total="total" :current-page.sync="pageNum">
     </el-pagination>
   </div>
 </template>

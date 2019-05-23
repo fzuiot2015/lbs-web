@@ -3,6 +3,7 @@ import axios from 'axios'
 /**
  * HTTP请求工具类
  */
+const urlRoot = '/api';
 export default {
   callback(res, onSuccess, onFail) {
     const data = res.data;
@@ -13,7 +14,7 @@ export default {
     }
   },
   get(url, params, onSuccess, onFail) {
-    axios.get(url, {params: params})
+    axios.get(urlRoot+url, {params: params})
       .then(
         (res) => this.callback(res, onSuccess, onFail)
       )
@@ -22,7 +23,7 @@ export default {
       )
   },
   put(url, params, onSuccess, onFail) {
-    axios.put(url, params)
+    axios.put(urlRoot+url, params)
       .then(
         (res) => this.callback(res, onSuccess, onFail)
       )
@@ -31,7 +32,7 @@ export default {
       )
   },
   post(url, params, onSuccess, onFail) {
-    axios.post(url, params)
+    axios.post(urlRoot+url, params)
       .then(
         (res) => this.callback(res, onSuccess, onFail)
       )
@@ -40,7 +41,7 @@ export default {
       )
   },
   delete(url, id, onSuccess, onFail) {
-    axios.delete(url + id)
+    axios.delete(urlRoot+url + id)
       .then(
         (res) => this.callback(res, onSuccess, onFail)
       )

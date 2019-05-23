@@ -45,7 +45,7 @@
 <script>
   const refreshEvent = 'accidentRefreshEvent';
   const editEvent = 'accidentEditEvent';
-  const itemUrl = '/api/accident/';
+  const itemUrl = '/accident/';
 
   export default {
     name: 'AccidentEditModal',

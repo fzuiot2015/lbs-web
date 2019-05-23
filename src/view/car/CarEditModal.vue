@@ -39,7 +39,7 @@
 <script>
   const refreshEvent = 'carRefreshEvent';
   const editEvent = 'carEditEvent';
-  const itemUrl = '/api/car/';
+  const itemUrl = '/car/';
 
   export default {
     name: "CarEditModal",

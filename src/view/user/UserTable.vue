@@ -23,8 +23,8 @@
         queryEvent: 'userQueryEvent',
         refreshEvent: 'userRefreshEvent',
         editEvent: 'userEditEvent',
-        listUrl: '/api/user/list/',
-        itemUrl: '/api/user/'
+        listUrl: '/user/list/',
+        itemUrl: '/user/'
       };
     },
   }
