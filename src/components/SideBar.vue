@@ -25,8 +25,10 @@
           {index: '/user', name: '用户信息', icon: 'el-icon-menu'},
           {index: '/car', name: '车辆信息', icon: 'el-icon-info'},
           {index: '/accident', name: '事故信息', icon: 'el-icon-warning'},
+          {index: '/violation', name: '违章信息', icon: 'el-icon-document'},
           {index: '/insurance', name: '保险信息', icon: 'el-icon-document'},
           {index: '/analyze', name: '保险分析', icon: 'el-icon-document'},
+          {index: '/trace', name: '轨迹分析', icon: 'el-icon-document'},
         ]
       }
     },

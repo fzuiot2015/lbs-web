@@ -61,7 +61,7 @@
             params.append('username', this.loginForm.username);
             params.append('pass', this.loginForm.pass);
 
-            this.$http.post('/api/admin/login', params,
+            this.$http.post('/admin/login', params,
               (data) => {
                 const token = data.result;
                 this.$store.set('login_token', token); //储存信息

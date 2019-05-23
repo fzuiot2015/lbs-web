@@ -8,6 +8,8 @@ import InsuranceContent from "../view/insurance/InsuranceContent"
 import AnalyzeContent from "../view/analyze/AnalyzeContent"
 import Login from '../view/Login'
 import store from '../assets/js/storage'
+import ViolationContent from "../view/violation/ViolationContent";
+import TraceContent from "../view/trace/TraceContent";
 
 Vue.use(Router);
 const router = new Router({
@@ -38,6 +40,11 @@ const router = new Router({
           meta: {Login: true}
         },
         {
+          path: '/violation',
+          component: ViolationContent,
+          meta: {Login: true}
+        },
+        {
           path: '/insurance',
           component: InsuranceContent,
           meta: {Login: true}
@@ -45,6 +52,11 @@ const router = new Router({
         {
           path: '/analyze',
           component: AnalyzeContent,
+          meta: {Login: true}
+        },
+        {
+          path: '/trace',
+          component: TraceContent,
           meta: {Login: true}
         }
       ]
