@@ -19,7 +19,8 @@
           {label: '姓名', prop: 'name'},
           {label: '电话', prop: 'phone'},
           {label: '驾驶证号', prop: 'driverLicense'},
-          {label: '血型', prop: 'bloodGroup'}
+          {label: '血型', prop: 'bloodGroup'},
+          {label: '应急电话', prop: 'mergencyPhone'}
         ],
         queryEvent: 'userQueryEvent',
         refreshEvent: 'userRefreshEvent',

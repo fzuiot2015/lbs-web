@@ -32,6 +32,10 @@
         <el-input v-model="user.bloodGroup" auto-complete="off"></el-input>
       </el-form-item>
 
+      <el-form-item label="应急电话" prop="mergencyPhone">
+        <el-input v-model="user.mergencyPhone" auto-complete="off"></el-input>
+      </el-form-item>
+
     </el-form>
 
     <div slot="footer" class="dialog-footer">
@@ -100,6 +104,13 @@
           callback();
         }
       };
+      const checkMergencyPhone = (rule, value, callback) => {
+        if (!value) {
+          callback(new Error('请输入应急电话'));
+        } else {
+          callback();
+        }
+      };
       return {
         ref: 'userForm',
         visible: false,
@@ -131,6 +142,10 @@
           bloodGroup:
             [
               {validator: checkBloodGroup, trigger: 'blur'}
+            ],
+          mergencyPhone:
+            [
+              {validator: checkMergencyPhone, trigger: 'blur'}
             ]
         }
       }
@@ -175,12 +190,12 @@
         }
       },
       handleClose(done) {
-/*        this.$confirm('确认关闭？')
-          .then(() => {
-            done();
-          })
-          .catch(_ => {
-          });*/
+        /*        this.$confirm('确认关闭？')
+                  .then(() => {
+                    done();
+                  })
+                  .catch(_ => {
+                  });*/
       }
     }
   }
