@@ -1,5 +1,5 @@
 <template>
-  <el-aside width="140px">
+  <!--<el-aside width="140px">-->
     <el-menu :default-active="$route.path" router>
 
       <el-menu-item v-for="(item,key) in items" :index="item.index" :key="key">
@@ -13,7 +13,7 @@
       </el-menu-item>
 
     </el-menu>
-  </el-aside>
+  <!--</el-aside>-->
 </template>
 
 <script>

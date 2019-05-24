@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-table :data="items">
+    <el-table :data="items" stripe>
       <el-table-column v-for="(column,key) in columns" :key="key"
                        :prop="column.prop" :label="column.label"
                        sortable value-format="timestamp">
