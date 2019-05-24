@@ -8,12 +8,12 @@
         <el-input v-model="item.userId" auto-complete="off"></el-input>
       </el-form-item>
 
-      <el-form-item label="保险公司" prop="insurer">
-        <el-input v-model="item.insurer" auto-complete="off"></el-input>
-      </el-form-item>
-
       <el-form-item label="保单号" prop="policyId">
         <el-input v-model="item.policyId" auto-complete="off"></el-input>
+      </el-form-item>
+
+      <el-form-item label="保险公司" prop="insurer">
+        <el-input v-model="item.insurer" auto-complete="off"></el-input>
       </el-form-item>
 
       <el-form-item label="保险电话" prop="insurancePhone">

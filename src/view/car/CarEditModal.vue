@@ -4,6 +4,10 @@
     <el-form :model="item" :rules="rules" status-icon :ref="ref"
              label-position="left" label-width="70px">
 
+      <el-form-item label="用户ID" prop="userId">
+        <el-input v-model="item.userId" auto-complete="off"></el-input>
+      </el-form-item>
+
       <el-form-item label="VIN码" prop="vin">
         <el-input v-model="item.vin" auto-complete="off"></el-input>
       </el-form-item>
@@ -14,10 +18,6 @@
 
       <el-form-item label="车辆类型" prop="vehicleType">
         <el-input v-model="item.vehicleType" auto-complete="off"></el-input>
-      </el-form-item>
-
-      <el-form-item label="所有人" prop="userId">
-        <el-input v-model="item.userId" auto-complete="off"></el-input>
       </el-form-item>
 
       <el-form-item label="发动机号" prop="engine">

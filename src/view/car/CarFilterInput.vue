@@ -2,6 +2,12 @@
   <div>
     <el-row :gutter="gutter">
       <el-col :span="span">
+        <el-input v-model="params.userId" placeholder="请输入内容" prefix-icon="el-icon-search" clearable>
+          <template slot="prepend">用户ID</template>
+        </el-input>
+      </el-col>
+
+      <el-col :span="span">
         <el-input v-model="params.vin" placeholder="请输入内容" prefix-icon="el-icon-search" clearable>
           <template slot="prepend">车辆识别码</template>
         </el-input>
@@ -12,19 +18,13 @@
           <template slot="prepend">车牌号</template>
         </el-input>
       </el-col>
+    </el-row>
+
+    <el-row :gutter="gutter">
 
       <el-col :span="span">
         <el-input v-model="params.vehicleType" placeholder="请输入内容" prefix-icon="el-icon-search" clearable>
           <template slot="prepend">车辆类型</template>
-        </el-input>
-      </el-col>
-
-    </el-row>
-
-    <el-row :gutter="gutter">
-      <el-col :span="span">
-        <el-input v-model="params.userId" placeholder="请输入内容" prefix-icon="el-icon-search" clearable>
-          <template slot="prepend">用户ID</template>
         </el-input>
       </el-col>
 

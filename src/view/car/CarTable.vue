@@ -16,7 +16,7 @@
         columns: [
           // {label: 'ID', prop: 'id'},
           {label: '用户ID', prop: 'userId'},
-          {label: 'VIN码', prop: 'vin'},
+          {label: '车辆识别码', prop: 'vin'},
           {label: '车牌号', prop: 'plate'},
           {label: '车辆类型', prop: 'vehicleType'},
           {label: '发动机号', prop: 'engine'},
