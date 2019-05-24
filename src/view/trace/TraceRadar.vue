@@ -18,7 +18,7 @@
       </el-col>
     </el-row>
 
-    <div id="radar" style="height: 500px;width: 1000px"></div>
+    <div id="radar" style="height: 500px;width: 800px"></div>
   </div>
 </template>
 

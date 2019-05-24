@@ -1,7 +1,6 @@
 <template>
   <el-main>
     <analyze-chart></analyze-chart>
-    <analyze-popover></analyze-popover>
   </el-main>
 </template>
 

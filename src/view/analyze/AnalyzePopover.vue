@@ -1,15 +1,23 @@
 <template>
   <div>
-    <el-popover
-      v-for="(item,key) in items"
-      :key="key"
-      placement="bottom"
-      :title="item.title"
-      width="400"
-      trigger="click"
-      :content="item.content">
-      <el-button slot="reference">{{item.title}}</el-button>
-    </el-popover>
+
+    <el-row :gutter="gutter">
+
+      <el-col :span="span"
+              v-for="(item,key) in items"
+              :key="key">
+
+        <el-popover
+          placement="bottom"
+          :title="item.title"
+          width="400"
+          trigger="click"
+          :content="item.content">
+          <el-button slot="reference">{{item.title}}</el-button>
+        </el-popover>
+
+      </el-col>
+    </el-row>
   </div>
 </template>
 
@@ -18,6 +26,8 @@
     name: "AnalyzePopover",
     data() {
       return {
+        gutter: 20,
+        span: 3,
         items: [
           {
             title: "车辆损失险",

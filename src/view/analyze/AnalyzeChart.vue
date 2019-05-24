@@ -23,17 +23,20 @@
       </el-col>
     </el-row>
 
-    <div id="analyzeChart" style="height: 500px;width: 1000px"></div>
+    <div id="analyzeChart" style="height: 500px;width: 1250px"></div>
     <!--<analyze-radar></analyze-radar>-->
+
+    <analyze-popover></analyze-popover>
 
   </div>
 </template>
 
 <script>
   import AnalyzeRadar from "./AnalyzeRadar";
+  import AnalyzePopover from "./AnalyzePopover";
   export default {
     name: "AnalyzeChart",
-    components: {AnalyzeRadar},
+    components: {AnalyzePopover, AnalyzeRadar},
     data() {
       return {
         item: {
@@ -78,7 +81,7 @@
             data: ['车辆损失险', '全车盗抢险', '玻璃单独破碎险', '自燃损失险', '车上人员责任险'],
           },
           xAxis: {
-            data: ["中国人寿保险", "平安保险", "太平洋保险", "中国大地保险", "天安保险", "安邦保险"],
+            data: ["中国人寿保险公司", "中国平安保险股份有限公司", "太平洋保险股份有限公司", "中国大地财产保险股份有限公司", "天安财产保险股份有限公司", "安邦保险集团股份有限公司"],
             splitLine: {
               show: false,
             },

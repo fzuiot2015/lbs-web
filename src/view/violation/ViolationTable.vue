@@ -14,7 +14,8 @@
       return {
         items: [],
         columns: [
-          {label: '时间', prop: 'date'},
+          {label: '用户ID', prop: 'userId'},
+          {label: '时间', prop: 'time'},
           {label: '地址', prop: 'address'},
           {label: '纬度', prop: 'lat'},
           {label: '经度', prop: 'lng'},

@@ -14,10 +14,10 @@
       return {
         items: [],
         columns: [
-          {label: 'ID', prop: 'id'},
+          // {label: 'ID', prop: 'id'},
           {label: '用户ID', prop: 'userId'},
-          {label: '保险公司', prop: 'insurer'},
           {label: '保单号', prop: 'policyId'},
+          {label: '保险公司', prop: 'insurer'},
           {label: '保险电话', prop: 'insurancePhone'},
           {label: '开始时间', prop: 'startTime'},
           {label: '结束时间', prop: 'endTime'},

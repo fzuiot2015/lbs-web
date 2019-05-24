@@ -29,12 +29,6 @@
       </el-col>
 
       <el-col :span="span">
-        <el-input v-model="params.address" placeholder="请输入内容" prefix-icon="el-icon-search" clearable>
-          <template slot="prepend">住址</template>
-        </el-input>
-      </el-col>
-
-      <el-col :span="span">
         <el-button type="primary" size="small" @click="query">查询</el-button>
         <el-button type="primary" size="small" @click="cleanParams">清空</el-button>
         <el-button type="primary" size="small" @click="add">新增</el-button>
