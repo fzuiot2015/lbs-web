@@ -28,6 +28,10 @@
         <el-input v-model="user.driverLicense" auto-complete="off"></el-input>
       </el-form-item>
 
+      <el-form-item label="血型" prop="bloodGroup">
+        <el-input v-model="user.bloodGroup" auto-complete="off"></el-input>
+      </el-form-item>
+
     </el-form>
 
     <div slot="footer" class="dialog-footer">
@@ -89,6 +93,13 @@
           callback();
         }
       };
+      const checkBloodGroup = (rule, value, callback) => {
+        if (!value) {
+          callback(new Error('请输入血型'));
+        } else {
+          callback();
+        }
+      };
       return {
         ref: 'userForm',
         visible: false,
@@ -116,6 +127,10 @@
           driverLicense:
             [
               {validator: checkDriverLicense, trigger: 'blur'}
+            ],
+          bloodGroup:
+            [
+              {validator: checkBloodGroup, trigger: 'blur'}
             ]
         }
       }
@@ -126,7 +141,7 @@
         this.reset();
         this.user = res;
         console.log(res.password);
-        if (res.password!==undefined) {
+        if (res.password !== undefined) {
           this.user.rePassword = res.password;
         }
         this.visible = true;
@@ -160,11 +175,12 @@
         }
       },
       handleClose(done) {
-        this.$confirm('确认关闭？')
-          .then(()=> {
+/*        this.$confirm('确认关闭？')
+          .then(() => {
             done();
           })
-          .catch(_ => {});
+          .catch(_ => {
+          });*/
       }
     }
   }

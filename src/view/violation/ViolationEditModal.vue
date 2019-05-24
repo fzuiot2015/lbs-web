@@ -154,11 +154,11 @@
         }
       },
       handleClose(done) {
-        this.$confirm('确认关闭？')
+/*        this.$confirm('确认关闭？')
           .then(()=> {
             done();
           })
-          .catch(_ => {});
+          .catch(_ => {});*/
       }
     }
   }
