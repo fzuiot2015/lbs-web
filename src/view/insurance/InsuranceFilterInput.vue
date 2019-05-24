@@ -45,9 +45,9 @@
         span: 8,
       }
     },
-    mounted() {
+/*    mounted() {
       this.params.userId = this.$route.query.userId;
-    },
+    },*/
     methods: {
       query() {
         const queryParams = this.$util.trimObject(this.params);
